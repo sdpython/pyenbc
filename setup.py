@@ -184,12 +184,14 @@ if is_local():
     r = process_standard_options_for_setup(
         sys.argv, __file__, project_var_name,
         layout=["html"],
-        unittest_modules=["pyquickhelper", "jyquickhelper", "pymyinstall"],
-        requirements=["pyquickhelper", "jyquickhelper", "pymyinstall"],
-        additional_notebook_path=["pyquickhelper", "jyquickhelper"],
-        coverage_options=dict(
-            omit=["*Parser.py", "*Listener.py", "*Lexer.py"]),
-        fLOG=logging_function, covtoken=("", "'_UT_36_std' in outfile"))
+        unittest_modules=["pyquickhelper",
+                          "jyquickhelper", "pymyinstall", "pyensae"],
+        requirements=["pyquickhelper",
+                      "jyquickhelper", "pymyinstall", "pyensae"],
+        additional_local_path=["pyquickhelper", "pyensae",
+                               "pymyinstall", "jyquickhelper"],
+        additional_notebook_path=["pyquickhelper", "jyquickhelper", "pyensae"],
+        fLOG=logging_function, covtoken=("c4a48da1-7385-44b7-a8ab-fe7ca8c378e0", "'_UT_36_std' in outfile"))
     if not r and not ({"bdist_msi", "sdist",
                        "bdist_wheel", "publish", "publish_doc", "register",
                        "upload_docs", "bdist_wininst", "build_ext"} & set(sys.argv)):

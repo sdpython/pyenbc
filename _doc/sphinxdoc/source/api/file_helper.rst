@@ -5,7 +5,6 @@ Helpers to play with files
 .. contents::
     :local:
 
-
 java
 ++++
 
@@ -34,4 +33,3 @@ java
 .. autosignature:: pyensae.file_helper.jython_helper.run_jython
 
 .. autosignature:: pyensae.file_helper.pig_helper.run_pig
-

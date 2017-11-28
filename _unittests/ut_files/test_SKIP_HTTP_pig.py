@@ -40,8 +40,8 @@ except ImportError:
 
 from pyquickhelper.loghelper import fLOG
 from pyquickhelper.pycode import is_travis_or_appveyor
-from src.pyensae.file_helper import download_java_standalone, is_java_installed
-from src.pyensae.file_helper.pig_helper import run_pig, download_pig_standalone
+from src.pyenbc.file_helper import download_java_standalone, is_java_installed
+from src.pyenbc.file_helper.pig_helper import run_pig, download_pig_standalone
 
 
 class TestPig (unittest.TestCase):

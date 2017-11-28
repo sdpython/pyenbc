@@ -1,0 +1,14 @@
+======================================================================
+ERROR: test_run_notebook (test_run_notebooks.TestRunNotebooks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\xavierdupre\__home_\GitHub\pyenbc\_unittests\ut_documentation\test_run_notebooks.py", line 100, in test_run_notebook
+    res, fLOG=fLOG, dump=src.pyenbc)
+  File "C:\xavierdupre\__home_\GitHub\pyquickhelper\src\pyquickhelper\ipythonhelper\run_notebook.py", line 338, in execute_notebook_list_finalize_ut
+    raise Exception("No notebook was run.")
+Exception: No notebook was run.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.042s
+
+FAILED (errors=1)

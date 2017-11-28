@@ -38,7 +38,7 @@ except ImportError:
     import pyquickhelper as skip_
 
 from pyquickhelper.loghelper import fLOG, run_cmd
-from src.pyensae.remote import ASSHClient
+from src.pyenbc.remote import ASSHClient
 
 
 class TestOutConnected (unittest.TestCase):

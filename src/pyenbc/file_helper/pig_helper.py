@@ -10,19 +10,19 @@ import os
 import glob
 from pyquickhelper.loghelper import run_cmd, noLOG
 from pyquickhelper.filehelper import change_file_status
+from pyensae.datasource.http_retrieve import download_data
 from .jython_helper import get_java_cmd, get_java_path
-from ..datasource.http_retrieve import download_data
 
 PIG_VERSION = "0.17.0"
-HADOOP_VERSION = "2.8.1"
+HADOOP_VERSION = "2.9.0"
 
 
 def download_pig_standalone(pig_version=PIG_VERSION,
                             hadoop_version=HADOOP_VERSION, fLOG=noLOG):
     """
-    download the standalone jython
-    if it does not exists, we should version ``HADOOP_VERSION``
-    by default in order to fit the cluster's version
+    Downloads the standalone :epkg:`jython`.
+    If it does not exists, we should version ``HADOOP_VERSION``
+    by default in order to fit the cluster's version.
 
     @param      pig_version         pig_version
     @param      hadoop_version      hadoop_version
@@ -33,8 +33,9 @@ def download_pig_standalone(pig_version=PIG_VERSION,
     fails, it might to due to very long path when unzipping the
     downloaded file.
 
-    Hadoop is downloaded from one of the websites referenced at
-    ` <http://www.apache.org/dyn/closer.cgi/hadoop/common/hadoop-2.8.0/hadoop-2.8.0.tar.gz>`_.
+t    :epkg:`Hadoop` is downloaded from one of the websites
+    referenced at
+    `Apache Software Foundation <http://www.apache.org/dyn/closer.cgi/hadoop/common/>`_.
     Check the source to see which one was chosen.
     """
     fbs = []
@@ -78,7 +79,7 @@ def download_pig_standalone(pig_version=PIG_VERSION,
 
 def get_pig_path():
     """
-    this function assumes a folder pig ``pigjar``
+    This function assumes a folder pig ``pigjar``
     is present in this directory, the function returns the folder
 
     @return     absolute path
@@ -99,8 +100,8 @@ def get_pig_path():
 
 def get_hadoop_path():
     """
-    this function assumes a folder pig ``hadoopjar``
-    is present in this directory, the function returns the folder
+    This function assumes a folder pig ``hadoopjar``
+    is present in this directory, the function returns the folder.
 
     @return     absolute path
     """
@@ -120,7 +121,8 @@ def get_hadoop_path():
 
 def get_pig_jars():
     """
-    returns the list of jars to include into the command line in order to run PIG
+    Returns the list of jars to include into the
+    command line in order to run :epkg:`PIG`.
 
     @return     list of jars
     """
@@ -141,7 +143,8 @@ def get_pig_jars():
 
 def get_hadoop_jars():
     """
-    returns the list of jars to include into the command line in order to run HADOOP
+    Returns the list of jars to include into the command
+    line in order to run :epkg:`HADOOP`.
 
     @return     list of jars
     """
@@ -161,7 +164,8 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
             pig_version=PIG_VERSION, hadoop_version=HADOOP_VERSION,
             fLOG=noLOG):
     """
-    runs a pig script and returns the standard output and error
+    Runs a :epkg:`pig` script and returns the
+    standard output and error.
 
     @param      pigfile         pig file
     @param      argv            arguments to sned to the command line

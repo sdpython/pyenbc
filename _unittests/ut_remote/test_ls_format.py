@@ -38,7 +38,7 @@ except ImportError:
     import pyquickhelper as skip_
 
 from pyquickhelper.loghelper import fLOG
-from src.pyensae.remote import ASSHClient
+from src.pyenbc.remote import ASSHClient
 
 thisfold = os.path.abspath(os.path.split(__file__)[0])
 thiscomm = os.path.join(thisfold, "..")

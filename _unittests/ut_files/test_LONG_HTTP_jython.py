@@ -39,9 +39,9 @@ except ImportError:
 
 from pyquickhelper.loghelper import fLOG
 from pyquickhelper.pycode import get_temp_folder, is_travis_or_appveyor
-from src.pyensae.file_helper import run_jython, is_java_installed, download_java_standalone
-from src.pyensae.remote.magic_azure import MagicAzure
-from src.pyensae.file_helper.magic_file import MagicFile
+from src.pyenbc.file_helper import run_jython, is_java_installed, download_java_standalone
+from src.pyenbc.remote.magic_azure import MagicAzure
+from src.pyenbc.file_helper.magic_file import MagicFile
 
 
 class TestJython (unittest.TestCase):

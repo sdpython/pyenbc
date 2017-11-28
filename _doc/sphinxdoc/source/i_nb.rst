@@ -20,4 +20,3 @@ Hadoop
 .. nbreflist::
     :contents:
     :tag: Hadoop
-

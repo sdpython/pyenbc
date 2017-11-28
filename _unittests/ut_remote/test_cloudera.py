@@ -9,10 +9,6 @@ import os
 import unittest
 import pandas
 import warnings
-thisfold = os.path.abspath(os.path.split(__file__)[0])
-thiscomm = os.path.join(thisfold, "..")
-sys.path.append(thiscomm)
-from common import get_codes
 
 try:
     import src
@@ -41,13 +37,14 @@ except ImportError:
     import pyquickhelper as skip_
 
 from pyquickhelper.loghelper import fLOG, run_cmd
-from src.pyensae.remote import ASSHClient
+from src.pyenbc.remote import ASSHClient
 
 
 class TestCloudera (unittest.TestCase):
 
     def setUp(self):
-        res = get_codes("CRTERALAB")
+        # TODO: use keyring.
+        res = None
         if res is None:
             self.client = None
         else:

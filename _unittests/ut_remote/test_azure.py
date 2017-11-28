@@ -11,10 +11,7 @@ import pandas
 import warnings
 from urllib3.exceptions import NewConnectionError
 from requests.exceptions import ConnectionError
-thisfold = os.path.abspath(os.path.split(__file__)[0])
-thiscomm = os.path.join(thisfold, "..")
-sys.path.append(thiscomm)
-from common import get_codes
+
 
 try:
     import src
@@ -43,13 +40,14 @@ except ImportError:
     import pyquickhelper as skip_
 
 from pyquickhelper.loghelper import fLOG, run_cmd
-from src.pyensae.remote import AzureClient
+from src.pyenbc.remote import AzureClient
 
 
 class TestAzure (unittest.TestCase):
 
     def setUp(self):
-        res = get_codes("CRAZURE")
+        # TODO: use keyring.
+        res = None
         if res is None:
             self.client = None
         else:
