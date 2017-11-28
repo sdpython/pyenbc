@@ -8,7 +8,7 @@ README
     :target: https://travis-ci.org/sdpython/pyenbc
     :alt: Build status
 
-.. image:: https://ci.appveyor.com/api/projects/status/jioxwx1igwbqwa28?svg=true
+.. image:: https://ci.appveyor.com/api/projects/status/scv9gmggw7qc462i?svg=true
     :target: https://ci.appveyor.com/project/sdpython/pyenbc
     :alt: Build Status Windows
 
