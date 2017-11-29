@@ -32,3 +32,4 @@ exclude_patterns += ["pyensae/file_helper/pigjar/*",
 nblinks = {"code-r2python": blog_root + "pyensae/languages/rconverter.html"}
 
 epkg_dictionary["blockdiag"] = 'http://blockdiag.com/'
+epkg_dictionary["pyensae"] = 'http://www.xavierdupre.fr/app/pyensae/helpsphinx/index.html'
