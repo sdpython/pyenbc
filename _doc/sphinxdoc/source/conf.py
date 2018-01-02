@@ -20,7 +20,7 @@ sys.path.insert(
 
 from pyquickhelper.helpgen.default_conf import set_sphinx_variables
 
-set_sphinx_variables(__file__, "pyenbc", "Xavier Dupré", 2017,
+set_sphinx_variables(__file__, "pyenbc", "Xavier Dupré", 2018,
                      "basicstrap", None, locals(), add_extensions=None,
                      extlinks=dict(issue=('https://github.com/sdpython/pyenbc/issues/%s', 'issue')))
 
