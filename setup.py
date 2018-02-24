@@ -19,7 +19,7 @@ requirements = None
 KEYWORDS = project_var_name + ', cluster, Hadoop, PIG, HIVE'
 DESCRIPTION = """Simplifies remote access to clusters."""
 CLASSIFIERS = [
-    'Programming Language :: Python :: %d' % sys.version_info[0],
+    'Programming Language :: Python :: 3',
     'Intended Audience :: Developers',
     'Topic :: Scientific/Engineering',
     'Topic :: Education',
@@ -77,8 +77,7 @@ def import_pyquickhelper():
                     os.path.join(
                         os.path.dirname(__file__),
                         "..",
-                        "pyquickhelper" if sys.version_info[
-                            0] >= 3 else "py27_pyquickhelper_27",
+                        "pyquickhelper",
                         "src"))))
         try:
             import pyquickhelper
