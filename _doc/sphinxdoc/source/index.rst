@@ -30,7 +30,7 @@ pyenbc documentation
 .. image:: https://codecov.io/github/sdpython/pyenbc/coverage.svg?branch=master
     :target: https://codecov.io/github/sdpython/pyenbc?branch=master
 
-.. image:: https://badge.waffle.io/sdpython/pyenbc.png?label=ready&title=Ready
+.. image:: https://badge.waffle.io/sdpython/pyenbc.png?label=to%20do&title=to%20do
     :alt: Waffle
     :target: https://waffle.io/sdpython/pyenbc
 
