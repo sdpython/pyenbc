@@ -238,7 +238,7 @@ class TestCloudera (unittest.TestCase):
             SELECT * FROM bikes20 LIMIT 10;
             """.replace("__USERNAME__", self.client.username.decode("ascii"))
         fLOG(hive_sql)
-        #${hiveconf:UTT}
+        # ${hiveconf:UTT}
 
         pigfile = os.path.join(fold, "pystream.pig")
         with open(pigfile, "w", encoding="utf8") as f:

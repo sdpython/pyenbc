@@ -15,7 +15,7 @@ pycrypto
 pycryptodomex
 pyensae
 pymyinstall
-pyquickhelper>=1.7.2438
+pyquickhelper>=1.7.2536
 qgrid
 sphinxjp.themes.basicstrap
 sphinxjp.themes.sphinxjp
