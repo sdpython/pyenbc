@@ -5,72 +5,56 @@
 import sys
 import os
 import unittest
-import warnings
-
+from pyquickhelper.loghelper import fLOG
+from pyquickhelper.pycode import check_pep8, ExtTestCase
 
 try:
-    import pyquickhelper as skip_
+    import src
 except ImportError:
     path = os.path.normpath(
         os.path.abspath(
             os.path.join(
                 os.path.split(__file__)[0],
                 "..",
-                "..",
-                "..",
-                "pyquickhelper",
-                "src",)))
+                "..")))
     if path not in sys.path:
         sys.path.append(path)
-    import pyquickhelper as skip_
-
-from pyquickhelper.loghelper import fLOG
-from pyquickhelper.pycode import check_pep8
-from pyquickhelper.pycode.utils_tests_helper import _extended_refactoring
+    import src
 
 
-class TestCodeStyle(unittest.TestCase):
+class TestCodeStyle(ExtTestCase):
 
-    def test_code_style_src(self):
-        fLOG(
-            __file__,
-            self._testMethodName,
-            OutputPrint=__name__ == "__main__")
-
-        if sys.version_info[0] == 2 or "Anaconda" in sys.executable \
-                or "condavir" in sys.executable:
-            warnings.warn(
-                "skipping test_code_style because of Python 2 or " + sys.executable)
-            return
-
+    def test_style_src(self):
         thi = os.path.abspath(os.path.dirname(__file__))
         src_ = os.path.normpath(os.path.join(thi, "..", "..", "src"))
-        check_pep8(src_, fLOG=fLOG, extended=[("fLOG", _extended_refactoring)],
-                   neg_filter="((.*Listener[.]py)|(.*pigjar.?pig.*[.]py)|(.*Parser[.]py)|(.*Lexer[.]py))$")
+        check_pep8(src_, fLOG=fLOG,
+                   pylint_ignore=('C0103', 'C1801', 'R0201', 'R1705', 'W0108', 'W0613',
+                                  'W0703', 'W0123', 'C0302', 'W0622'),
+                   skip=["Attribute 'session_params' defined outside __init__",
+                         "Consider iterating the dictionary directly instead of calling .keys()",
+                         "azure_transfer_api.py:20: W0231",
+                         "Attribute '_service' defined outside __init__ ",
+                         "magic_azure.py:303: W0612",
+                         ])
 
-    def test_code_style_test(self):
-        fLOG(
-            __file__,
-            self._testMethodName,
-            OutputPrint=__name__ == "__main__")
-
-        if sys.version_info[0] == 2 or "Anaconda" in sys.executable \
-                or "condavir" in sys.executable:
-            warnings.warn(
-                "skipping test_code_style because of Python 2 or " + sys.executable)
-            return
-
+    def test_style_test(self):
         thi = os.path.abspath(os.path.dirname(__file__))
         test = os.path.normpath(os.path.join(thi, "..", ))
-        check_pep8(test, fLOG=fLOG, neg_filter="((temp_.*)|(.*_virtualenv.*))",
+        check_pep8(test, fLOG=fLOG, neg_pattern="temp_.*",
+                   pylint_ignore=('C0103', 'C1801', 'R0201', 'R1705', 'W0108', 'W0613',
+                                  'C0111', 'W0511', 'W0622', 'R1710', 'E1133'),
                    skip=["src' imported but unused",
                          "skip_' imported but unused",
                          "skip__' imported but unused",
                          "skip___' imported but unused",
-                         "[E402] module level",
-                         ],
-                   extended=[("fLOG", _extended_refactoring)],
-                   max_line_length=1000)
+                         "Unused variable 'skip_'",
+                         "Unused import src",
+                         "Unused variable 'skip_",
+                         "imported as skip_",
+                         "Imports from package src are not grouped",
+                         "defined outside __init__ ",
+                         "Value 'codes' is unsubscriptable",
+                         ])
 
 
 if __name__ == "__main__":

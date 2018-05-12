@@ -7,15 +7,15 @@ will sort all test files by increasing time and run them.
 import sys
 import os
 import unittest
-import pandas
 import warnings
+import pandas
 from urllib3.exceptions import NewConnectionError
 from requests.exceptions import ConnectionError
+from pyquickhelper.loghelper import fLOG, run_cmd
 
 
 try:
     import src
-    import pyquickhelper as skip_
 except ImportError:
     path = os.path.normpath(
         os.path.abspath(
@@ -25,40 +25,22 @@ except ImportError:
                 "..")))
     if path not in sys.path:
         sys.path.append(path)
-    path = os.path.normpath(
-        os.path.abspath(
-            os.path.join(
-                os.path.split(__file__)[0],
-                "..",
-                "..",
-                "..",
-                "pyquickhelper",
-                "src")))
-    if path not in sys.path:
-        sys.path.append(path)
     import src
-    import pyquickhelper as skip_
 
-from pyquickhelper.loghelper import fLOG, run_cmd
 from src.pyenbc.remote import AzureClient
 
 
 class TestAzure (unittest.TestCase):
 
     def setUp(self):
-        # TODO: use keyring.
+        # use keyring
         res = None
         if res is None:
             self.client = None
         else:
             codes = res
-            cl = AzureClient(
-                codes[0],
-                codes[1],
-                codes[2],
-                codes[3],
-                "admin",
-                "test_user")
+            cl = AzureClient(codes[0], codes[1], codes[2],
+                             codes[3], "admin", "test_user")
             self.client = cl
             self.blob_serv = cl.open_blob_service()
             self.container = codes[0]
@@ -179,12 +161,18 @@ class TestAzure (unittest.TestCase):
         with open(pyfile, "w", encoding="utf8") as f:
             f.write(pyth)
 
-        tosend = """[{'address': "52 RUE D'ENGHIEN / ANGLE RUE DU FAUBOURG POISSONIERE - 75010 PARIS", 'collect_date': datetime.datetime(2014, 11, 11, 22, 1, 18, 331070), """ + \
-                 """'lng': 2.348395236282807, 'contract_name': 'Paris', 'name': '10042 - POISSONNIÈRE - ENGHIEN', 'banking': 0, 'lat': 48.87242006305313, 'bonus': 0, 'status': """ + \
-                 """'OPEN', 'available_bikes': 32, 'last_update': datetime.datetime(2014, 11, 11, 21, 59, 5), 'number': 10042, 'available_bike_stands': 1, 'bike_stands': 33},""" + \
-                 """{'address': "52 RUE D'ENGHIEN / ANGLE RUE DU FAUBOURG POISSONIERE - 75010 PARIS", 'collect_date': datetime.datetime(2014, 11, 11, 22, 1, 18, 331070), """ + \
-                 """'lng': 2.348395236282807, 'contract_name': 'Paris', 'name': '10042 - POISSONNIÈRE - ENGHIEN', 'banking': 0, 'lat': 48.87242006305313, 'bonus': 0, 'status': """ + \
-                 """'OPEN', 'available_bikes': 32, 'last_update': datetime.datetime(2014, 11, 11, 21, 59, 5), 'number': 10042, 'available_bike_stands': 1, 'bike_stands': 33}]"""
+        tosend = """[{'address': "52 RUE D'ENGHIEN / ANGLE RUE DU FAUBOURG POISSONIERE - 75010 PARIS", """ + \
+                 """'collect_date': datetime.datetime(2014, 11, 11, 22, 1, 18, 331070), """ + \
+                 """'lng': 2.348395236282807, 'contract_name': 'Paris', 'name': '10042 - POISSONNIÈRE - """ + \
+                 """ENGHIEN', 'banking': 0, 'lat': 48.87242006305313, 'bonus': 0, 'status': """ + \
+                 """'OPEN', 'available_bikes': 32, 'last_update': datetime.datetime(2014, 11, 11, 21, 59, 5), """ + \
+                 """'number': 10042, 'available_bike_stands': 1, 'bike_stands': 33},""" + \
+                 """{'address': "52 RUE D'ENGHIEN / ANGLE RUE DU FAUBOURG POISSONIERE - 75010 PARIS", """ + \
+                 """'collect_date': datetime.datetime(2014, 11, 11, 22, 1, 18, 331070), """ + \
+                 """'lng': 2.348395236282807, 'contract_name': 'Paris', 'name': '10042 - POISSONNIÈRE - """ + \
+                 """ENGHIEN', 'banking': 0, 'lat': 48.87242006305313, 'bonus': 0, 'status': """ + \
+                 """'OPEN', 'available_bikes': 32, 'last_update': datetime.datetime(2014, 11, 11, 21, 59, 5), """ + \
+                 """'number': 10042, 'available_bike_stands': 1, 'bike_stands': 33}]"""
 
         cmd = sys.executable.replace(
             "pythonw",

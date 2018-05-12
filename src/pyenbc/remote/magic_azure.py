@@ -5,12 +5,10 @@
 """
 import sys
 import os
-
-from pyquickhelper.loghelper import run_cmd
-from pyquickhelper.ipythonhelper import MagicClassWithHelpers, MagicCommandParser
-
 from IPython.core.magic import magics_class, line_magic, cell_magic
 from IPython.core.display import HTML
+from pyquickhelper.loghelper import run_cmd
+from pyquickhelper.ipythonhelper import MagicClassWithHelpers, MagicCommandParser
 from .azure_connection import AzureClient, AzureException
 from ..file_helper.jython_helper import run_jython, download_java_standalone
 
@@ -19,7 +17,8 @@ from ..file_helper.jython_helper import run_jython, download_java_standalone
 class MagicAzure(MagicClassWithHelpers):
 
     """
-    Defines magic commands to access `blob storage <http://azure.microsoft.com/fr-fr/documentation/articles/storage-dotnet-how-to-use-blobs/>`_
+    Defines magic commands to access
+    `blob storage <http://azure.microsoft.com/fr-fr/documentation/articles/storage-dotnet-how-to-use-blobs/>`_
     and `HDInsight <http://azure.microsoft.com/fr-fr/services/hdinsight/>`_.
 
     When the container is not specified, it will take the default one.
@@ -120,7 +119,7 @@ class MagicAzure(MagicClassWithHelpers):
         """
         returns the AzureClient object
         """
-        cl, bs = self.get_blob_connection()
+        cl, _ = self.get_blob_connection()
         return cl
 
     @line_magic
@@ -128,7 +127,7 @@ class MagicAzure(MagicClassWithHelpers):
         """
         returns the BlobService object
         """
-        cl, bs = self.get_blob_connection()
+        _, bs = self.get_blob_connection()
         return bs
 
     @line_magic
@@ -136,7 +135,7 @@ class MagicAzure(MagicClassWithHelpers):
         """
         returns the Blob Storage container
         """
-        cl, bs = self.get_blob_connection()
+        cl, _ = self.get_blob_connection()
         return cl.account_name
 
     @staticmethod
@@ -168,9 +167,10 @@ class MagicAzure(MagicClassWithHelpers):
             :tag: Azure
             :title: blob_open
 
-            Open a connection to blob service.
+            Opens a connection to blob service.
             It returns objects @see cl AzureClient and
-            `BlobService <http://www.xavierdupre.fr/app/azure-sdk-for-python/helpsphinx/storage/blobservice.html?highlight=blobservice#azure.storage.blobservice.BlobService>`_.
+            `BlobService <http://www.xavierdupre.fr/app/azure-sdk-for-python/helpsphinx/storage/blobservice.html?
+            highlight=blobservice#azure.storage.blobservice.BlobService>`_.
 
             The code for magic command ``%blob_open`` is equivalent to::
 
@@ -197,6 +197,7 @@ class MagicAzure(MagicClassWithHelpers):
             bs = cl.open_blob_service()
             self.shell.user_ns["remote_azure_blob"] = bs
             return cl, bs
+        return None
 
     @staticmethod
     def hd_open_parser():
@@ -242,23 +243,22 @@ class MagicAzure(MagicClassWithHelpers):
     @line_magic
     def hd_open(self, line):
         """
-        open a connection to blob service
+        Opens a connection to blob service.
 
         .. nbref::
             :tag: Azure
             :title: hd_open
 
-            Open a connection to blob service.
+            Opens a connection to blob service.
             It returns objects @see cl AzureClient and
-            `BlobService <http://www.xavierdupre.fr/app/azure-sdk-for-python/helpsphinx/storage/blobservice.html?highlight=blobservice#azure.storage.blobservice.BlobService>`_.
+            `BlobService <http://www.xavierdupre.fr/app/azure-sdk-for-python/helpsphinx/storage/blobservice.html?
+            highlight=blobservice#azure.storage.blobservice.BlobService>`_.
 
             The code for magic command ``%hd_open`` is equivalent to::
 
                 from pyensae.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
-
-
         """
         parser = self.get_parser(MagicAzure.hd_open_parser, "hd_open")
         args = self.get_args(line, parser)
@@ -286,6 +286,7 @@ class MagicAzure(MagicClassWithHelpers):
             bs = cl.open_blob_service()
             self.shell.user_ns["remote_azure_blob"] = bs
             return cl, bs
+        return None
 
     @line_magic
     def blob_close(self, line):
@@ -298,10 +299,8 @@ class MagicAzure(MagicClassWithHelpers):
             :title: blob_close
 
             Does nothing.
-
-
         """
-        cl, bs = self.get_blob_connection()
+        _, bs = self.get_blob_connection()
         # bs.close()
         del self.shell.user_ns["remote_azure_blob"]
         return True
@@ -313,8 +312,9 @@ class MagicAzure(MagicClassWithHelpers):
         """
         if "-h" in line or "--help" in line:
             print("Usage: %blob_containers")
+            return None
         else:
-            cl, bs = self.get_blob_connection()
+            _, bs = self.get_blob_connection()
             res = bs.list_containers()
             return [r.name for r in res]
 
@@ -371,8 +371,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 df = cl.ls(bs, container, remotepath)
-
-
         """
         parser = self.get_parser(MagicAzure.blob_ls_parser, "blob_ls")
         args = self.get_args(line, parser)
@@ -387,6 +385,7 @@ class MagicAzure(MagicClassWithHelpers):
                            "content_type", "content_length", "blob_type"]]
             else:
                 return df
+        return None
 
     @staticmethod
     def blob_lsl_parser():
@@ -417,8 +416,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 df = cl.ls(bs, container, remotepath, add_metadata=True)
-
-
         """
         parser = self.get_parser(MagicAzure.blob_lsl_parser, "blob_lsl")
         args = self.get_args(line, parser)
@@ -428,14 +425,15 @@ class MagicAzure(MagicClassWithHelpers):
             container, remotepath = self._interpret_path(
                 args.path, cl, bs, True)
             return cl.ls(bs, container, remotepath, add_metadata=True)
+        return None
 
     @staticmethod
     def blob_up_parser():
         """
-        defines the way to parse the magic command ``%blob_up``
+        Defines the way to parse the magic command ``%blob_up``.
         """
-        parser = MagicCommandParser(prog="blob_up",
-                                    description='upload a file on a blob storage, we assume the container is the first element to the remote path')
+        parser = MagicCommandParser(prog="blob_up", description='upload a file on a blob storage, ' +
+                                    'we assume the container is the first element to the remote path')
         parser.add_argument(
             'localfile',
             type=str,
@@ -469,8 +467,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.upload(bs, container, remotepath, localfile)
-
-
         """
         parser = self.get_parser(MagicAzure.blob_up_parser, "blob_up")
         args = self.get_args(line, parser)
@@ -484,14 +480,15 @@ class MagicAzure(MagicClassWithHelpers):
             container, remotepath = self._interpret_path(remotepath, cl, bs)
             cl.upload(bs, container, remotepath, localfile)
             return remotepath
+        return None
 
     @staticmethod
     def blob_down_parser():
         """
-        defines the way to parse the magic command ``%blob_down``
+        Defines the way to parse the magic command ``%blob_down``.
         """
-        parser = MagicCommandParser(prog="blob_down",
-                                    description='download a file from a blob storage, we assume the container is the first element to the remote path')
+        parser = MagicCommandParser(prog="blob_down", description='download a file from a blob storage, we assume the container ' +
+                                    'is the first element to the remote path')
         parser.add_argument(
             'remotepath',
             type=str,
@@ -530,8 +527,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.download(bs, container, remotepath, localfile)
-
-
         """
         parser = self.get_parser(MagicAzure.blob_down_parser, "blob_down")
         args = self.get_args(line, parser)
@@ -548,6 +543,7 @@ class MagicAzure(MagicClassWithHelpers):
             container, remotepath = self._interpret_path(remotepath, cl, bs)
             cl.download(bs, container, remotepath, localfile)
             return localfile
+        return None
 
     @staticmethod
     def blob_downmerge_parser():
@@ -596,8 +592,6 @@ class MagicAzure(MagicClassWithHelpers):
                 bs = cl.open_blob_service()
                 cl.download_merge(bs, container, remotepath, localfile)
 
-
-
         .. versionadded:: 1.1
         """
         parser = self.get_parser(
@@ -617,6 +611,7 @@ class MagicAzure(MagicClassWithHelpers):
             container, remotepath = self._interpret_path(remotepath, cl, bs)
             cl.download_merge(bs, container, remotepath, localfile)
             return localfile
+        return None
 
     @line_magic
     def blob_rm(self, line):
@@ -656,8 +651,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.delete_blob(bs, container, remotepath)
-
-
         """
         parser = self.get_parser(MagicAzure.blob_delete_parser, "blob_delete")
         args = self.get_args(line, parser)
@@ -668,6 +661,7 @@ class MagicAzure(MagicClassWithHelpers):
                 args.remotepath, cl, bs)
             cl.delete_blob(bs, container, remotepath)
             return True
+        return None
 
     @staticmethod
     def blob_rmr_parser():
@@ -698,8 +692,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.delete_folder(bs, container, remotepath)
-
-
         """
         parser = self.get_parser(MagicAzure.blob_rmr_parser, "blob_rmr")
         args = self.get_args(line, parser)
@@ -709,6 +701,7 @@ class MagicAzure(MagicClassWithHelpers):
             container, remotepath = self._interpret_path(
                 args.remotepath, cl, bs)
             return cl.delete_folder(bs, container, remotepath)
+        return None
 
     @staticmethod
     def blob_copy_parser():
@@ -743,8 +736,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.copy_blob(bs, container, dest, src)
-
-
         """
         parser = self.get_parser(MagicAzure.blob_copy_parser, "blob_copy")
         args = self.get_args(line, parser)
@@ -762,6 +753,7 @@ class MagicAzure(MagicClassWithHelpers):
                     None)
             cl.copy_blob(bs, container, dest, src)
             return True
+        return None
 
     @staticmethod
     def hd_queue_parser():
@@ -793,16 +785,15 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.job_queue(showall=showall)
-
-
         """
         parser = self.get_parser(MagicAzure.hd_queue_parser, "hd_queue")
         args = self.get_args(line, parser)
 
         if args is not None:
             showall = args.showall
-            cl, bs = self.get_blob_connection()
+            cl, _ = self.get_blob_connection()
             return cl.job_queue(showall=showall)
+        return None
 
     @staticmethod
     def hd_job_status_parser():
@@ -832,8 +823,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.job_status(jobid)
-
-
         """
         parser = self.get_parser(
             MagicAzure.hd_job_status_parser, "hd_job_status")
@@ -841,8 +830,9 @@ class MagicAzure(MagicClassWithHelpers):
 
         if args is not None:
             jobid = args.jobid
-            cl, bs = self.get_blob_connection()
+            cl, _ = self.get_blob_connection()
             return cl.job_status(jobid)
+        return None
 
     @staticmethod
     def hd_job_kill_parser():
@@ -872,16 +862,15 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.job_kill(jobid)
-
-
         """
         parser = self.get_parser(MagicAzure.hd_job_kill_parser, "hd_job_kill")
         args = self.get_args(line, parser)
 
         if args is not None:
             jobid = args.jobid
-            cl, bs = self.get_blob_connection()
+            cl, _ = self.get_blob_connection()
             return cl.job_kill(jobid)
+        return None
 
     @line_magic
     def hd_wasb_prefix(self, line):
@@ -889,7 +878,7 @@ class MagicAzure(MagicClassWithHelpers):
         defines ``%hd_wasb_prefix``, returns the prefix used to connect to the blob storage,
         it includes the *container* name
         """
-        cl, bs = self.get_blob_connection()
+        cl, _ = self.get_blob_connection()
         return cl.wasb_to_file(cl.account_name, "")
 
     @staticmethod
@@ -929,6 +918,7 @@ class MagicAzure(MagicClassWithHelpers):
             script = cell.replace("\r", "")
             with open(filename, "w", encoding="utf8") as f:
                 f.write(script)
+        return None
 
     @staticmethod
     def HIVE_azure_parser():
@@ -967,15 +957,17 @@ class MagicAzure(MagicClassWithHelpers):
             script = cell.replace("\r", "")
             with open(filename, "w", encoding="utf8") as f:
                 f.write(script)
+        return None
 
     @staticmethod
     def HIVE_azure_submit_parser():
         """
-        defines the way to parse the magic command ``%HIVE_azure_submit``
+        Defines the way to parse the magic command ``%HIVE_azure_submit``.
         """
         parser = MagicCommandParser(prog="HIVE_azure_submit",
                                     description='Submits a job to the cluster, the job is local, the job is ' +
-                                    'first uploaded to the cluster. The magic command populates the local variable last_job with the submitted job id.')
+                                    'first uploaded to the cluster. The magic command populates the local ' +
+                                    'variable last_job with the submitted job id.')
         parser.add_argument(
             'file',
             type=str,
@@ -1003,7 +995,7 @@ class MagicAzure(MagicClassWithHelpers):
     @line_magic
     def HIVE_azure_submit(self, line):
         """
-        defines command ``%HIVE_azure_submit``
+        Defines command ``%HIVE_azure_submit``.
 
         .. nbref::
             :tag: Azure
@@ -1015,8 +1007,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.hive_submit(bs, cl.account_name, hive_file_name, dependencies, **options)
-
-
         """
         parser = self.get_parser(
             MagicAzure.HIVE_azure_submit_parser, "HIVE_azure_submit")
@@ -1039,15 +1029,17 @@ class MagicAzure(MagicClassWithHelpers):
 
             self.shell.user_ns["last_job"] = r
             return r
+        return None
 
     @staticmethod
     def hd_pig_submit_parser():
         """
-        defines the way to parse the magic command ``%hd_pig_submit``
+        Defines the way to parse the magic command ``%hd_pig_submit``.
         """
         parser = MagicCommandParser(prog="hd_pig_submit",
                                     description='Submits a job to the cluster, the job is local, the job is ' +
-                                    'first uploaded to the cluster. The magic command populates the local variable last_job with the submitted job id.')
+                                    'first uploaded to the cluster. The magic command populates the local ' +
+                                    'variable last_job with the submitted job id.')
         parser.add_argument(
             'file',
             type=str,
@@ -1075,7 +1067,7 @@ class MagicAzure(MagicClassWithHelpers):
     @line_magic
     def hd_pig_submit(self, line):
         """
-        defines command ``%hd_pig_submit``
+        Defines command ``%hd_pig_submit``.
 
         .. nbref::
             :tag: Azure
@@ -1087,8 +1079,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.pig_submit(bs, cl.account_name, pig_file_name, dependencies, **options)
-
-
         """
         parser = self.get_parser(
             MagicAzure.hd_pig_submit_parser, "hd_pig_submit")
@@ -1111,6 +1101,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             self.shell.user_ns["last_job"] = r
             return r
+        return None
 
     @staticmethod
     def hd_tail_stderr_parser():
@@ -1119,7 +1110,8 @@ class MagicAzure(MagicClassWithHelpers):
         """
         parser = MagicCommandParser(prog="hd_tail_stderr",
                                     description='Submits a job to the cluster, the job is local, the job is first ' +
-                                    'uploaded to the cluster. The magic command populates the local variable last_job with the submitted job id.')
+                                    'uploaded to the cluster. The magic command populates the local variable ' +
+                                    'last_job with the submitted job id.')
         parser.add_argument(
             'jobid',
             type=str,
@@ -1157,8 +1149,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.standard_outputs(job_id, bs, cl.account_name, ".")
-
-
         """
         parser = self.get_parser(
             MagicAzure.hd_tail_stderr_parser, "hd_tail_stderr")
@@ -1197,6 +1187,7 @@ class MagicAzure(MagicClassWithHelpers):
                         "<pre>\n%s\n</pre><br /><b>OUT:</b><br /><pre>\n%s\n</pre>" % (show, shoo))
                 else:
                     return HTML("<pre>\n%s\n</pre><br />" % show)
+        return None
 
     def _run_jython(self, cell, filename, func_name, args, true_jython=None):
         """
@@ -1294,7 +1285,7 @@ class MagicAzure(MagicClassWithHelpers):
     @cell_magic
     def runjpython(self, line, cell=None):
         """
-        defines command ``%%runjython``
+        Defines command ``%%runjython``.
 
         .. nbref::
             :tag: Azure
@@ -1307,15 +1298,14 @@ class MagicAzure(MagicClassWithHelpers):
             The magic function create another file included the decoration.
             It runs the script with this version of Python.
 
-            See `In a python script how can I ignore Apache Pig's Python Decorators for standalone unit testing <http://stackoverflow.com/questions/18223898/in-a-python-script-how-can-i-ignore-apache-pigs-python-decorators-for-standalon>`_
+            See `In a python script how can I ignore Apache Pig's Python Decorators for standalone unit testing
+            <http://stackoverflow.com/questions/18223898/in-a-python-script-how-can-i-ignore-apache-pigs-python-decorators-for-standalon>`_
 
             See @see me _run_jython to see the code.
 
-
-
         .. versionadded:: 1.1
         """
-        parser = self.get_parser(MagicAzure.runjpython_parser, "runjpython")
+        parser = self.get_parser(MagicAzure.runjython_parser, "runjpython")
         args = self.get_args(line, parser)
 
         if args is not None:
@@ -1334,6 +1324,7 @@ class MagicAzure(MagicClassWithHelpers):
                         '<font color="#DD0000">Error</font><br /><pre>\n%s\n</pre>' % err)
                 else:
                     return HTML('<pre>\n%s\n</pre>' % out)
+        return None
 
     @staticmethod
     def jython_parser():
@@ -1365,7 +1356,7 @@ class MagicAzure(MagicClassWithHelpers):
     @cell_magic
     def jython(self, line, cell=None):
         """
-        defines command ``%%runjython``
+        Defines command ``%%runjython``.
 
         run a jython script used for streaming in HDInsight,
         the function appends fake decorator
@@ -1374,7 +1365,8 @@ class MagicAzure(MagicClassWithHelpers):
         The magic function create another file included the decoration.
         It runs the script with Jython (see the default version)
 
-        See `In a python script how can I ignore Apache Pig's Python Decorators for standalone unit testing <http://stackoverflow.com/questions/18223898/in-a-python-script-how-can-i-ignore-apache-pigs-python-decorators-for-standalon>`_
+        See `In a python script how can I ignore Apache Pig's Python Decorators for standalone unit testing
+        <http://stackoverflow.com/questions/18223898/in-a-python-script-how-can-i-ignore-apache-pigs-python-decorators-for-standalon>`_.
 
         .. versionadded:: 1.1
         """
@@ -1398,6 +1390,7 @@ class MagicAzure(MagicClassWithHelpers):
                         '<font color="#DD0000">Error</font><br /><pre>\n%s\n</pre>' % err)
                 else:
                     return HTML('<pre>\n%s\n</pre>' % out)
+        return None
 
     @staticmethod
     def blob_head_parser():
@@ -1467,7 +1460,6 @@ class MagicAzure(MagicClassWithHelpers):
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 df = cl.df_head(bs, container, remotepath, localfile)
-
         """
         parser = self.get_parser(MagicAzure.blob_head_parser, "blob_head")
         args = self.get_args(line, parser)
@@ -1481,6 +1473,7 @@ class MagicAzure(MagicClassWithHelpers):
                              as_df=args.df, merge=args.merge, sep=args.sep,
                              header=args.header)
             return res
+        return None
 
     @staticmethod
     def blob_path_parser():
@@ -1517,8 +1510,6 @@ class MagicAzure(MagicClassWithHelpers):
                     remotepath = None if len(spl) == 1 else "/".join(spl[1:])
 
                 result = container, remotepath
-
-
         """
         parser = self.get_parser(MagicAzure.blob_delete_parser, "blob_delete")
         args = self.get_args(line, parser)
@@ -1528,6 +1519,7 @@ class MagicAzure(MagicClassWithHelpers):
             container, remotepath = self._interpret_path(
                 args.remotepath, cl, bs)
             return container, remotepath
+        return None
 
 
 def register_azure_magics(ip=None):

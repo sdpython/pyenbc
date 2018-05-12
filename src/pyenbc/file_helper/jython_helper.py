@@ -68,8 +68,9 @@ def get_java_path():
             for p in pa:
                 if os.path.isdir(p) and os.path.exists(p):
                     return p
-            raise FileNotFoundError(
-                "path {0} does not exists, you need to install java.\nGo to http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html")
+            raise FileNotFoundError(("path '{0}' does not exists, you need to install java.\nGo to \n" +
+                                     "http://www.oracle.com/technetwork/java/javase/downloads" +
+                                     "/jre8-downloads-2133155.html").format(location))
         else:
             java = ""
     return java
@@ -148,6 +149,7 @@ def run_jython(pyfile,
         jython_path = get_jython_jar()
 
     def clean(i, p):
+        "local function"
         if i == 0:
             return p
         if '"' in p:

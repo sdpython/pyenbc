@@ -3,15 +3,13 @@
 @file
 @brief A class to help connect with a remote machine and send command line.
 """
-
-import requests
 import os
 import time
 import io
 import warnings
-
-from .azure_exception import AzureException
+import requests
 from pyquickhelper.loghelper import noLOG
+from .azure_exception import AzureException
 
 
 class AzureClient():
@@ -27,10 +25,12 @@ class AzureClient():
     .. index: blob, Azure
 
     Main functionalities related to blob:
-        * list_containers, create_container, list_blobs, put_blob, put_block_blob_from_bytes
-        * put_block_blob_from_text, put_page_blob_from_file, get_blob, get_blob
 
-    See `How to use Blob storage from Python <https://azure.microsoft.com/en-us/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+    * list_containers, create_container, list_blobs, put_blob, put_block_blob_from_bytes
+    * put_block_blob_from_text, put_page_blob_from_file, get_blob, get_blob
+
+    See `How to use Blob storage from Python
+    <https://azure.microsoft.com/en-us/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
 
     .. exref::
         :title: Get the list of containers and files from a blob storage?
@@ -72,9 +72,11 @@ class AzureClient():
             cl.download(bs, "<container>", "myremotefolder/remotename.txt",
                                         "another_local_filename.txt")
 
-    Many function uses WebHCat API.
-    The error code can be found here:
-    `Error Codes and Responses <https://cwiki.apache.org/confluence/display/Hive/WebHCat+UsingWebHCat#WebHCatUsingWebHCat-ErrorCodesandResponses>`_.
+    Many function uses
+    `WebHCat API <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference>`_.
+    The error codes can be found here:
+    `Error Codes and Responses
+    <https://cwiki.apache.org/confluence/display/Hive/WebHCat+UsingWebHCat#WebHCatUsingWebHCat-ErrorCodesandResponses>`_.
 
     .. versionchanged::
         PSEUDO, CONTAINER, SCRIPT will be passed to the script as parameters
@@ -288,7 +290,9 @@ class AzureClient():
         @param      file_path           local file path
         @return                         list of uploaded blob names
 
-        The code comes from `Utilisation du service de stockage d'objets blob à partir de Python <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+        The code comes from
+        `Utilisation du service de stockage d'objets blob à partir de Python
+        <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
         """
         if isinstance(file_path, list):
             res = []
@@ -351,7 +355,9 @@ class AzureClient():
         @param      data                bytes
         @return                         list of uploaded blob names
 
-        The code comes from `Utilisation du service de stockage d'objets blob à partir de Python <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+        The code comes from
+        `Utilisation du service de stockage d'objets blob à partir de Python
+        <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
 
         .. versionadded:: 1.1
         """
@@ -410,7 +416,9 @@ class AzureClient():
         @param      stop_at             stop at a given size (None to avoid stopping)
         @return                         local file or bytes if *file_path* is None
 
-        The code comes from `Utilisation du service de stockage d'objets blob à partir de Python <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+        The code comes from
+        `Utilisation du service de stockage d'objets blob à partir de Python
+        <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
 
         .. versionchanged:: 1.1
             Parameters *append*, *chunk_size* were added.
@@ -461,8 +469,9 @@ class AzureClient():
                 if stop_at is not None and stop_at < chunk_size:
                     chunk_size = max(stop_at, 0)
 
-                def iterations(f, chunk_size,
-                               container_name, blob_name, file_path, stop_at):
+                def iterations(f, chunk_size, container_name, blob_name,
+                               file_path, stop_at):
+                    "local function"
                     index = 0
 
                     while index < blob_size:
@@ -506,12 +515,8 @@ class AzureClient():
                         f.write(bl.content)
                     return file_path
 
-    def download_data(self,
-                      blob_service,
-                      container_name,
-                      blob_name,
-                      chunk_size=None,
-                      stop_at=None):
+    def download_data(self, blob_service, container_name, blob_name,
+                      chunk_size=None, stop_at=None):
         """
         Downloads data from a blob storage and return bytes.
         No more than 64Mb can be downloaded  at the same, it needs to be split into
@@ -529,17 +534,10 @@ class AzureClient():
         return self.download(blob_service=blob_service, container_name=container_name,
                              blob_name=blob_name, chunk_size=chunk_size, stop_at=stop_at)
 
-    def df_head(self,
-                blob_service,
-                container_name,
-                blob_name,
-                stop_at=2 ** 20,
-                encoding="utf-8",
-                as_df=True,
-                merge=False,
-                **options):
+    def df_head(self, blob_service, container_name, blob_name, stop_at=2 ** 20,
+                encoding="utf-8", as_df=True, merge=False, **options):
         """
-        Download the beginning of a stream and displays as a DataFrame
+        Downloads the beginning of a stream and displays as a DataFrame.
 
         @param      blob_service        returns by @see me open_blob_service
         @param      container_name      container name
@@ -548,7 +546,8 @@ class AzureClient():
         @param      encoding            encoding
         @param      as_df               result as a dataframe or a string
         @param      merge               if True, *blob_name* is a folder, method @see me download_merge is called
-        @param      options             see  `read_csv <http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.read_csv.html?highlight=read_csv#pandas.read_csv>`_
+        @param      options             see  `read_csv <http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.read_csv.html?
+                                        highlight=read_csv#pandas.read_csv>`_
         @return                         local file or bytes if *file_path* is None
 
         .. versionadded:: 1.1
@@ -776,21 +775,18 @@ class AzureClient():
                 r)
         return r.json()
 
-    def pig_submit(self,
-                   blob_service,
-                   container_name,
-                   pig_file,
-                   dependencies=None,
-                   status_dir=None,
-                   stop_on_failure=True,
-                   params=None):
+    def pig_submit(self, blob_service, container_name, pig_file, dependencies=None, status_dir=None,
+                   stop_on_failure=True, params=None):
         """
-        Submit a PIG job, the function uploads it to the cluster
+        Submits a :epkg:`PIG` job, the function uploads it to the cluster
         as well as the dependencies.
 
-        The code comes from `How to use HDInsight from Linux <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/how-to-use-hdinsight-from-linux.aspx>`_
-        and `start a Pig + Jython job in HDInsight thru WebHCat <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
-        The API is described at `Pig Job — POST pig <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Pig>`_.
+        The code comes from `How to use HDInsight from Linux
+        <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/how-to-use-hdinsight-from-linux.aspx>`_
+        and `start a Pig + Jython job in HDInsight thru WebHCat
+        <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
+        The API is described at `Pig Job — POST pig
+        <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Pig>`_.
 
         @param      blob_service    returns by @see me open_blob_service
         @param      container_name  name of a container
@@ -807,7 +803,8 @@ class AzureClient():
             :tag: Azure
 
             The script PIG must include an instruction ``LOAD``.
-            This instruction use file name defined with the `wasb syntax <http://azure.microsoft.com/en-us/documentation/articles/hdinsight-use-blob-storage/>`_.
+            This instruction use file name defined with the
+            `wasb syntax <http://azure.microsoft.com/en-us/documentation/articles/hdinsight-use-blob-storage/>`_.
 
             If you place the string ``$CONTAINER`` before a stream name,
             it should be replaced by the corresponding wasb syntax associated
@@ -815,11 +812,11 @@ class AzureClient():
             The function will then load your script,
             modify it and save another one with the by adding
             ``.wasb.pig``.
-
             Others constants you could use:
-                * ``$PSEUDO``
-                * ``$CONTAINER``
-                * ``$SCRIPTSPIG``
+
+            * ``$PSEUDO``
+            * ``$CONTAINER``
+            * ``$SCRIPTSPIG``
 
             However, this replacement is not done by this class, but your code could
             be such as:
@@ -928,12 +925,15 @@ class AzureClient():
     def hive_submit(self, blob_service, container_name, hive_file, dependencies=None,
                     status_dir=None, stop_on_failure=True, params=None):
         """
-        Submit a HIVE job, the function uploads it to the cluster
+        Submits a :epkg:`HIVE` job, the function uploads it to the cluster
         as well as the dependencies.
 
-        The code comes from `How to use HDInsight from Linux <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/how-to-use-hdinsight-from-linux.aspx>`_
-        and `start a Pig + Jython job in HDInsight thru WebHCat <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
-        The API is described at `Pig Job — POST pig <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Pig>`_.
+        The code comes from `How to use HDInsight from Linux
+        <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/how-to-use-hdinsight-from-linux.aspx>`_
+        and `start a Pig + Jython job in HDInsight thru WebHCat
+        <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
+        The API is described at `Pig Job — POST pig
+        <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Pig>`_.
 
         @param      blob_service    returns by @see me open_blob_service
         @param      container_name  name of a container

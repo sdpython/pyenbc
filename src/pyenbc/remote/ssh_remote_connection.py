@@ -222,7 +222,8 @@ class ASSHClient():
     @staticmethod
     def _get_out_format(format):
         """
-        returns a function which converts an ANSI string into a different format
+        Returns a function which converts an :epkg:`ANSI` string into a
+        different format.
 
         @param      format      string
         @return                 function
@@ -236,12 +237,14 @@ class ASSHClient():
         if func is None:
             if format is None:
                 def idfunc(s):
+                    "local function"
                     return s
                 func = idfunc
             elif format == "plain":
                 import ansiconv
 
                 def convert_plain(s):
+                    "local function"
                     return ansiconv.to_plain(s)
                 func = convert_plain
             elif format == "html":
@@ -249,19 +252,17 @@ class ASSHClient():
                 conv = Ansi2HTMLConverter()
 
                 def convert_html(s):
+                    "local function"
                     return conv.convert(s)
                 func = convert_html
             ASSHClient._allowed_form[format] = func
         return func
 
-    def open_session(self,
-                     no_exception=False,
-                     timeout=1.0,
-                     add_eol=True,
-                     prompts=("~$", ">>>"),
-                     out_format=None):
+    def open_session(self, no_exception=False, timeout=1.0,
+                     add_eol=True, prompts=("~$", ">>>"), out_format=None):
         """
-        open a session with method `invoke_shell <http://docs.paramiko.org/en/latest/api/client.html?highlight=invoke_shell#paramiko.client.SSHClient.invoke_shell>`_
+        Opens a session with method
+        `invoke_shell <http://docs.paramiko.org/en/latest/api/client.html?highlight=invoke_shell#paramiko.client.SSHClient.invoke_shell>`_.
 
         @param      no_exception    if True, do not raise any exception in case of error
         @param      timeout         timeout in s
@@ -313,7 +314,6 @@ class ASSHClient():
         }
 
         self.session.settimeout(timeout)
-
         return self.session
 
     def close_session(self):
@@ -558,14 +558,15 @@ class ASSHClient():
                    no_exception=True,
                    fLOG=noLOG):
         """
-        submits a PIG script, it first upload the script
-        to the default folder and submit it
+        Submits a :epkg:`PIG` script, it first upload the script
+        to the default folder and submits it.
 
         @param      pig_file        pig script (local)
         @param      dependencies    others files to upload (still in the default folder)
         @param      params          parameters to send to the job
         @param      redirection     string empty or not
-        @param      local           local run or not (option `-x local <https://cwiki.apache.org/confluence/display/PIG/PigTutorial>`_)  (in that case, redirection will be empty)
+        @param      local           local run or not (option `-x local <https://cwiki.apache.org/confluence/display/PIG/PigTutorial>`_)
+                                    (in that case, redirection will be empty)
         @param      stop_on_failure if True, add option ``-stop_on_failure`` on the command line
         @param      check           if True, add option ``-check`` (in that case, redirection will be empty)
         @param      no_exception    sent to @see me execute_command

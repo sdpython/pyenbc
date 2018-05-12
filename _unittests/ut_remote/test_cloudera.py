@@ -7,12 +7,12 @@ will sort all test files by increasing time and run them.
 import sys
 import os
 import unittest
-import pandas
 import warnings
+import pandas
+from pyquickhelper.loghelper import fLOG, run_cmd
 
 try:
     import src
-    import pyquickhelper as skip_
 except ImportError:
     path = os.path.normpath(
         os.path.abspath(
@@ -22,21 +22,8 @@ except ImportError:
                 "..")))
     if path not in sys.path:
         sys.path.append(path)
-    path = os.path.normpath(
-        os.path.abspath(
-            os.path.join(
-                os.path.split(__file__)[0],
-                "..",
-                "..",
-                "..",
-                "pyquickhelper",
-                "src")))
-    if path not in sys.path:
-        sys.path.append(path)
     import src
-    import pyquickhelper as skip_
 
-from pyquickhelper.loghelper import fLOG, run_cmd
 from src.pyenbc.remote import ASSHClient
 
 
@@ -195,10 +182,7 @@ class TestCloudera (unittest.TestCase):
         spl = out.split("\n")
         if len(spl) != 2:
             raise Exception(
-                "len:{2}\nOUT:\n{0}\nERR:\n{1}".format(
-                    out,
-                    err,
-                    len(out)))
+                "len:{2}\nOUT:\n{0}\nERR:\n{1}".format(out, err, len(out)))
 
         fLOG("CC")
         # PIG script
@@ -304,11 +288,9 @@ class TestCloudera (unittest.TestCase):
         # we submit the job
         # disable HIVE for the time being (broken)
         warnings.warn("hive not being tested")
-        return
-        out, err = self.client.hive_submit(hive_sql,
-                                           redirection=None,
-                                           params=dict(UTT="unittest2"),
-                                           fLOG=fLOG)
+
+        out, err = self.client.hive_submit(hive_sql, redirection=None,
+                                           params=dict(UTT="unittest2"), fLOG=fLOG)
 
         fLOG("HIVE OUT")
         fLOG(out)

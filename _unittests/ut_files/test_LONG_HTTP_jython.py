@@ -9,11 +9,13 @@ will sort all test files by increasing time and run them.
 import sys
 import os
 import unittest
+from pyquickhelper.loghelper import fLOG
+from pyquickhelper.pycode import get_temp_folder, is_travis_or_appveyor
+from pyensae.file_helper.magic_file import MagicFile
 
 
 try:
     import src
-    import pyquickhelper as skip_
 except ImportError:
     path = os.path.normpath(
         os.path.abspath(
@@ -23,39 +25,9 @@ except ImportError:
                 "..")))
     if path not in sys.path:
         sys.path.append(path)
-    path = os.path.normpath(
-        os.path.abspath(
-            os.path.join(
-                os.path.split(__file__)[0],
-                "..",
-                "..",
-                "..",
-                "pyquickhelper",
-                "src")))
-    if path not in sys.path:
-        sys.path.append(path)
     import src
-    import pyquickhelper as skip_
 
-try:
-    import pyensae as skip_
-except ImportError:
-    path = os.path.normpath(
-        os.path.abspath(
-            os.path.join(
-                os.path.split(__file__)[0],
-                "..",
-                "..",
-                "..",
-                "pyensae",
-                "src")))
-    if path not in sys.path:
-        sys.path.append(path)
-    import pyensae as skip__
 
-from pyquickhelper.loghelper import fLOG
-from pyquickhelper.pycode import get_temp_folder, is_travis_or_appveyor
-from pyensae.file_helper.magic_file import MagicFile
 from src.pyenbc.file_helper import run_jython, is_java_installed, download_java_standalone
 from src.pyenbc.remote.magic_azure import MagicAzure
 
@@ -118,7 +90,8 @@ class TestJython (unittest.TestCase):
 
                             import datetime
 
-                            #@outputSchema("brow: (available_bike_stands:chararray, available_bikes:chararray, lat:chararray, lng:chararray, name:chararray, status:chararray)")
+                            #@outputSchema("brow: (available_bike_stands:chararray, ##EOL##
+                            available_bikes:chararray, lat:chararray, lng:chararray, name:chararray, status:chararray)")
                             @outputSchema("brow:chararray")
                             def extract_columns_from_js(row):
                                 cols = ["available_bike_stands","available_bikes","lat","lng","name","status"]
@@ -136,12 +109,20 @@ class TestJython (unittest.TestCase):
                                     sys.stdout.write(str(res))
                                     sys.stdout.write("\\n")
                                     sys.stdout.flush()
-                    '''.replace("                            ", ""))
+                    '''.replace("##EOL##", "").replace("                            ", ""))
 
         sin = '''
-                    [{'address': 'RUE DES CHAMPEAUX (PRES DE LA GARE ROUTIERE) - 93170 BAGNOLET', 'collect_date': datetime.datetime(2014, 11, 11, 22, 2, 18, 47270), 'lng': 2.416170724425901, 'contract_name': 'Paris', 'name': '31705 - CHAMPEAUX (BAGNOLET)', 'banking': 0, 'lat': 48.8645278209514, 'bonus': 0, 'status': 'OPEN', 'available_bikes': 1, 'last_update': datetime.datetime(2014, 11, 11, 21, 55, 22), 'number': 31705, 'available_bike_stands': 49, 'bike_stands': 50}]
-                    [{'address': 'RUE DES CHAMPEAUX (PRES DE LA GARE ROUTIERE) - 93170 BAGNOLET', 'collect_date': datetime.datetime(2014, 11, 11, 22, 2, 18, 47270), 'lng': 2.416170724425901, 'contract_name': 'Paris', 'name': '31705 - CHAMPEAUX (BAGNOLET)', 'banking': 0, 'lat': 48.8645278209514, 'bonus': 0, 'status': 'OPEN', 'available_bikes': 1, 'last_update': datetime.datetime(2014, 11, 11, 21, 55, 22), 'number': 31705, 'available_bike_stands': 49, 'bike_stands': 50}]
-                    '''.replace("                    ", "").strip("\r\n ")
+                    [{'address': 'RUE DES CHAMPEAUX (PRES DE LA GARE ROUTIERE) - 93170 BAGNOLET', 'collect_date': ##EOL##
+                    datetime.datetime(2014, 11, 11, 22, 2, 18, 47270), 'lng': 2.416170724425901, 'contract_name': 'Paris', ##EOL##
+                    'name': '31705 - CHAMPEAUX (BAGNOLET)', 'banking': 0, 'lat': 48.8645278209514, 'bonus': 0, 'status': 'OPEN', ##EOL##
+                    'available_bikes': 1, 'last_update': datetime.datetime(2014, 11, 11, 21, 55, 22), 'number': 31705, ##EOL##
+                    'available_bike_stands': 49, 'bike_stands': 50}]
+                    [{'address': 'RUE DES CHAMPEAUX (PRES DE LA GARE ROUTIERE) - 93170 BAGNOLET', ##EOL##
+                    'collect_date': datetime.datetime(2014, 11, 11, 22, 2, 18, 47270), 'lng': 2.416170724425901, ##EOL##
+                    'contract_name': 'Paris', 'name': '31705 - CHAMPEAUX (BAGNOLET)', 'banking': 0, 'lat': 48.8645278209514, ##EOL##
+                    'bonus': 0, 'status': 'OPEN', 'available_bikes': 1, 'last_update': datetime.datetime(2014, 11, 11, 21, 55, 22), ##EOL##
+                    'number': 31705, 'available_bike_stands': 49, 'bike_stands': 50}]
+                    '''.replace("##EOL##", "").replace("                    ", "").strip("\r\n ")
         out, err = run_jython(jyt, sin=sin, fLOG=fLOG)
         fLOG("OUT:\n", out)
         fLOG("ERR:\n", err)

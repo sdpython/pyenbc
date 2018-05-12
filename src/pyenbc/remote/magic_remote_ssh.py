@@ -129,7 +129,8 @@ class MagicRemoteSSH(MagicClassWithHelpers):
         """
         parser = MagicCommandParser(prog="pig_submit",
                                     description='Submits a job to the cluster, the job is local, the job ' +
-                                    'is first uploaded to the cluster. The magic command populates the local variable last_job with the submitted job id.')
+                                    'is first uploaded to the cluster. The magic command populates ' +
+                                    'the local variable last_job with the submitted job id.')
         parser.add_argument(
             'file',
             type=str,
@@ -187,7 +188,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 out, err = ssh.pig_submit(
                     pig, dependencies=dependencies, redirection=redirection, local=local, stop_on_failure=stop_on_failure)
                 ssh.close()
-
         """
         parser = self.get_parser(
             MagicRemoteSSH.pig_submit_parser, "pig_submit")
@@ -216,6 +216,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                     return HTML("<pre>\n%s\n</pre>" % err)
                 else:
                     return HTML("<pre>\n%s\n</pre>" % out)
+        return None
 
     @staticmethod
     def hive_submit_parser():
@@ -223,7 +224,8 @@ class MagicRemoteSSH(MagicClassWithHelpers):
         defines the way to parse the magic command ``%hive_submit``
         """
         parser = MagicCommandParser(prog="hive_submit",
-                                    description='Submits a job to the cluster, the job is local, the job is first uploaded to the cluster. The magic ' +
+                                    description='Submits a job to the cluster, the job is local, ' +
+                                    'the job is first uploaded to the cluster. The magic ' +
                                     'command populates the local variable last_job with the submitted job id.')
         parser.add_argument(
             'file',
@@ -258,7 +260,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 out, err = ssh.hive_submit(
                     pig, redirection=redirection, local=local)
                 ssh.close()
-
         """
         parser = self.get_parser(
             MagicRemoteSSH.hive_submit_parser, "hive_submit")
@@ -282,6 +283,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                     return HTML("<pre>\n%s\n</pre>" % err)
                 else:
                     return HTML("<pre>\n%s\n</pre>" % out)
+        return None
 
     @staticmethod
     def remote_py_parser():
@@ -330,8 +332,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                                 for _ in args.args) if args.args is not None else ""
                 out, err = ssh.execute_command(exe + " " + dest + " " + args, no_exception=True)
                 ssh.close()
-
-
         """
         parser = self.get_parser(
             MagicRemoteSSH.remote_py_parser, "remote_py")
@@ -361,6 +361,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                         "<b>ERR:</b><br /><pre>\n%s\n</pre><b>OUT:</b><br /><pre>\n%s\n</pre>" % (err, out))
                 else:
                     return HTML("<pre>\n%s\n</pre>" % out)
+        return None
 
     @staticmethod
     def job_syntax_parser():
@@ -408,6 +409,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                     return HTML("<pre>\n%s\n</pre>" % err)
                 else:
                     return HTML("<pre>\n%s\n</pre>" % out)
+        return None
 
     @staticmethod
     def remote_open_parser():
@@ -450,8 +452,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
 
                 ssh = ASSHClient(server, username, password)
                 ssh.connect()
-
-
         """
         parser = self.get_parser(
             MagicRemoteSSH.remote_open_parser, "remote_open")
@@ -466,6 +466,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
 
             self.shell.user_ns["remote_ssh"] = ssh
             return ssh
+        return None
 
     @line_magic
     def remote_close(self, line):
@@ -516,8 +517,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 out, err = ssh.execute_command(
                     line, no_exception=True, fill_stdin=cell)
                 ssh.close()
-
-
         """
         if "--help" in line:
             print("Usage: %remote_cmd <cmd>")
@@ -534,6 +533,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 return HTML("<pre>\n%s\n</pre>" % err)
             else:
                 return HTML("<pre>\n%s\n</pre>" % out)
+        return None
 
     @line_cell_magic
     def remote_cmd_text(self, line, cell=None):
@@ -567,6 +567,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 return err
             else:
                 return out
+        return None
 
     @staticmethod
     def remote_up_parser():
@@ -606,8 +607,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 ssh.connect()
                 ssh.upload(localfile, remotepath)
                 ssh.close()
-
-
         """
         parser = self.get_parser(MagicRemoteSSH.remote_up_parser, "remote_up")
         args = self.get_args(line, parser)
@@ -619,6 +618,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             ssh.upload(localfile, remotepath)
             return remotepath
+        return None
 
     @staticmethod
     def remote_up_cluster_parser():
@@ -659,8 +659,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 ssh.upload_cluster(localfile, remotepath)
                 ssh.close()
 
-
-
         .. versionadded:: 1.1
         """
         parser = self.get_parser(
@@ -674,6 +672,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             ssh.upload_cluster(localfile, remotepath)
             return remotepath
+        return None
 
     @staticmethod
     def remote_down_parser():
@@ -719,8 +718,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 ssh.connect()
                 ssh.download(remotepath, localfile)
                 ssh.close()
-
-
         """
         parser = self.get_parser(
             MagicRemoteSSH.remote_down_parser, "remote_down")
@@ -737,6 +734,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                         "file {0} cannot be overwritten".format(localfile))
             ssh.download(remotepath, localfile)
             return localfile
+        return None
 
     @staticmethod
     def remote_down_cluster_parser():
@@ -789,8 +787,6 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 ssh.download_cluster(remotepath, localfile, merge=merge)
                 ssh.close()
 
-
-
         .. versionadded:: 1.1
         """
         parser = self.get_parser(
@@ -808,6 +804,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             ssh.download_cluster(remotepath, localfile, merge=args.merge)
             return localfile
+        return None
 
     @staticmethod
     def open_remote_shell_parser():
@@ -851,6 +848,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             ssh.open_session(out_format=args.format)
             return True
+        return None
 
     @line_magic
     def close_remote_shell(self, line):
@@ -925,6 +923,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             df = ssh.ls(args.path)
             return df
+        return None
 
     @staticmethod
     def dfs_ls_parser():
@@ -970,6 +969,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             df = ssh.dfs_ls(args.path)
             return df
+        return None
 
     @staticmethod
     def dfs_rm_parser():
@@ -1021,6 +1021,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             df = ssh.dfs_rm(args.path, recursive=args.recursive)
             return df
+        return None
 
     @staticmethod
     def dfs_mkdir_parser():
@@ -1038,7 +1039,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
     @line_magic
     def dfs_mkdir(self, line):
         """
-        create a folder on the cluster
+        Creates a folder on the cluster.
 
         Example::
 
@@ -1066,6 +1067,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             ssh = self.get_connection()
             df = ssh.dfs_mkdir(args.path)
             return df
+        return None
 
 
 def register_magics_ssh(ip=None):

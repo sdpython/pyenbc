@@ -10,11 +10,12 @@ import sys
 import os
 import unittest
 import random
+from pyquickhelper.loghelper import fLOG
+from pyquickhelper.pycode import is_travis_or_appveyor
 
 
 try:
     import src
-    import pyquickhelper as skip_
 except ImportError:
     path = os.path.normpath(
         os.path.abspath(
@@ -24,22 +25,8 @@ except ImportError:
                 "..")))
     if path not in sys.path:
         sys.path.append(path)
-    path = os.path.normpath(
-        os.path.abspath(
-            os.path.join(
-                os.path.split(__file__)[0],
-                "..",
-                "..",
-                "..",
-                "pyquickhelper",
-                "src")))
-    if path not in sys.path:
-        sys.path.append(path)
     import src
-    import pyquickhelper as skip_
 
-from pyquickhelper.loghelper import fLOG
-from pyquickhelper.pycode import is_travis_or_appveyor
 from src.pyenbc.file_helper import download_java_standalone, is_java_installed
 from src.pyenbc.file_helper.pig_helper import run_pig, download_pig_standalone
 
@@ -63,12 +50,13 @@ class TestPig (unittest.TestCase):
         except FileNotFoundError:
             # for some unknown reason, it requires to be done twice
             # due to FileNotFoundError: [Errno 2] No such file or directory:
-            # 'pyensae\\src\\pyensae\\file_helper\\pigjar\\pig-0.15.0\\contrib\\piggybank\\java\\build\\classes\\org\\apache\\pig\\piggybank\\storage\\IndexedStorage$IndexedStorageInputFormat$IndexedStorageRecordReader$IndexedStorageRecordReaderComparator.class'
+            # 'pyensae\\src\\pyensae\\file_helper\\pigjar\\pig-0.15.0\\contrib\\
+            # piggybank\\java\\build\\classes\\org\\apache
+            # \\pig\\piggybank\\storage\\IndexedStorage$IndexedStorageInputFormat$
+            # IndexedStorageRecordReader$IndexedStorageRecordReaderComparator.class'
             download_pig_standalone(fLOG=fLOG)
 
         # it does not work for the time being
-        return
-
         this = os.path.abspath(os.path.dirname(__file__))
         temp = os.path.join(this, "temp_pig")
         if not os.path.exists(temp):
@@ -76,7 +64,7 @@ class TestPig (unittest.TestCase):
 
         rnd = os.path.join(temp, "random.sample.txt")
         with open(rnd, "w") as f:
-            for i in range(0, 1000):
+            for _ in range(0, 1000):
                 x = random.random()
                 f.write(str(x) + "\n")
 

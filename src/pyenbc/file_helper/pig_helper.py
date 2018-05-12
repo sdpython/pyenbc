@@ -128,7 +128,7 @@ def get_pig_jars():
     """
     path = get_pig_path()
     res = []
-    for root, dirs, files in os.walk(path):
+    for root, _, files in os.walk(path):
         for name in files:
             if os.path.splitext(name)[-1] == ".jar" and "lib" in root:
                 if "h1" not in root and "h1" not in name and "h1" not in root \
@@ -150,7 +150,7 @@ def get_hadoop_jars():
     """
     path = get_hadoop_path()
     res = []
-    for root, dirs, files in os.walk(path):
+    for root, _, files in os.walk(path):
         for name in files:
             if os.path.splitext(name)[-1] == ".jar":
                 if "sources.jar" not in name and "-test-sources" not in name \
@@ -209,6 +209,7 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
     fLOG("PIG_CONF_DIR=", os.environ["PIG_CONF_DIR"])
 
     def clean(i, p):
+        "local function"
         if i == 0:
             return p
         if '"' in p:

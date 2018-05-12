@@ -19,8 +19,6 @@ class AzureTransferAPI(TransferAPI):
 
     def __init__(self, blob, key, fLOG=None, container="backup"):
         """
-        constructor
-
         @param      blob        blob storage
         @param      key         key
         @param      container   container name
