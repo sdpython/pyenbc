@@ -48,12 +48,10 @@ class TestCodeStyle(ExtTestCase):
                          "skip__' imported but unused",
                          "skip___' imported but unused",
                          "Unused variable 'skip_'",
-                         "Unused import src",
-                         "Unused variable 'skip_",
                          "imported as skip_",
-                         "Imports from package src are not grouped",
                          "defined outside __init__ ",
                          "Value 'codes' is unsubscriptable",
+                         "Unused import src",
                          ])
 
 
