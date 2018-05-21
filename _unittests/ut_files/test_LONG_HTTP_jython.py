@@ -106,7 +106,7 @@ class TestJython (unittest.TestCase):
                                     sys.stdout.write(str(res))
                                     sys.stdout.write("\\n")
                                     sys.stdout.flush()
-                    '''.replace("##EOL##", "").replace("                            ", ""))
+                    '''.replace("##EOL##\n", "").replace("                            ", ""))
 
         sin = '''
                     [{'address': 'RUE DES CHAMPEAUX (PRES DE LA GARE ROUTIERE) - 93170 BAGNOLET', 'collect_date': ##EOL##
@@ -119,7 +119,7 @@ class TestJython (unittest.TestCase):
                     'contract_name': 'Paris', 'name': '31705 - CHAMPEAUX (BAGNOLET)', 'banking': 0, 'lat': 48.8645278209514, ##EOL##
                     'bonus': 0, 'status': 'OPEN', 'available_bikes': 1, 'last_update': datetime.datetime(2014, 11, 11, 21, 55, 22), ##EOL##
                     'number': 31705, 'available_bike_stands': 49, 'bike_stands': 50}]
-                    '''.replace("##EOL##", "").replace("                    ", "").strip("\r\n ")
+                    '''.replace("##EOL##\n", "").replace("                    ", "").strip("\r\n ")
         out, err = run_jython(jyt, sin=sin, fLOG=fLOG)
         fLOG("OUT:\n", out)
         fLOG("ERR:\n", err)
