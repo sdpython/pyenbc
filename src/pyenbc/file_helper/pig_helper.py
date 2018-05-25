@@ -14,7 +14,7 @@ from pyensae.datasource.http_retrieve import download_data
 from .jython_helper import get_java_cmd, get_java_path
 
 PIG_VERSION = "0.17.0"
-HADOOP_VERSION = "2.9.0"
+HADOOP_VERSION = "2.9.1"
 
 
 def download_pig_standalone(pig_version=PIG_VERSION,
@@ -162,7 +162,7 @@ def get_hadoop_jars():
 def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
             jython_path=None, timeout=None, logpath="logs",
             pig_version=PIG_VERSION, hadoop_version=HADOOP_VERSION,
-            fLOG=noLOG):
+            jar_no_hadoop=True, fLOG=noLOG):
     """
     Runs a :epkg:`pig` script and returns the
     standard output and error.
@@ -175,6 +175,7 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
     @param      logpath         path to the logs
     @param      pig_version     PIG version (if *pig_path* is not defined)
     @param      hadoop_version  Hadoop version (if *hadoop_path* is not defined)
+    @param      jar_no_hadoop   use :epkg:`pig` without :epkg:`hadoop`
     @param      fLOG            logging function
     @return                     out, err
 
@@ -218,9 +219,8 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
             p = '"{0}"'.format(p)
         return p
 
-    full = False
     jars = []
-    if full:
+    if not jar_no_hadoop:
         jars.extend(get_pig_jars())  # + get_hadoop_jars()
         folds = set(os.path.split(j)[0] for j in jars)
         jars = [os.path.join(f, "*.jar") for f in folds]
@@ -308,14 +308,6 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
         jars.append(
             os.path.join(
                 hadoop_path,
-                "hadoop-2.5.2",
-                "share",
-                "hadoop",
-                "hdfs",
-                "hadoop-hdfs-nfs-%s.jar" % hadoop_version))
-        jars.append(
-            os.path.join(
-                hadoop_path,
                 "hadoop-%s" % hadoop_version,
                 "share",
                 "hadoop",
@@ -330,7 +322,7 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
                 "yarn",
                 "*.jar"))
 
-        jars.append(os.path.join(pig_path, "pig-%s-core-h1.jar" % pig_version))
+        jars.append(os.path.join(pig_path, "pig-%s-core-h2.jar" % pig_version))
     else:
         jars.append(
             os.path.join(
@@ -344,8 +336,6 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
         r = glob.glob(j)
         jarsall.extend(r)
     jarsall.sort()
-    for j in jarsall:
-        fLOG(j)
 
     jars = ";".join(jars)
     fLOG("jars", jars)
@@ -368,4 +358,8 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
     cmd = " ".join(clean(i, _) for i, _ in enumerate(cmd))
     out, err = run_cmd(
         cmd, wait=True, sin=None, communicate=True, timeout=timeout, shell=False)
+    out = "PIG_CONF_DIR={0}\nJAVA_HOME={1}\nHADOOP_HOME={2}\n{3}\n{4}".format(os.environ.get('PIG_CONF_DIR', ''),
+                                                                              os.environ.get('JAVA_HOME', ''), os.environ.get(
+                                                                                  'HADOOP_HOME', ''),
+                                                                              "\n".join("add jar: '{0}'".format(j) for j in jarsall), out)
     return out, err

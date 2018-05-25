@@ -79,7 +79,7 @@ class TestPig (unittest.TestCase):
 
         out, err = run_pig(pg, fLOG=fLOG, logpath=temp)
         if "first try with pig" not in out:
-            raise Exception("OUT:\n{0}\nERR:\n{1}".format(out, err))
+            raise Exception("--OUT--\n{0}\n--ERR--\n{1}".format(out, err))
 
 
 if __name__ == "__main__":
