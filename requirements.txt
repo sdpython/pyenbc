@@ -13,6 +13,7 @@ Mako
 pandas_datareader
 pandocfilters
 paramiko
+Pillow
 pycrypto
 pycryptodomex
 pyensae
