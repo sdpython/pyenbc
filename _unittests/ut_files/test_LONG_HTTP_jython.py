@@ -7,7 +7,7 @@ import sys
 import os
 import unittest
 from pyquickhelper.loghelper import fLOG
-from pyquickhelper.pycode import get_temp_folder, is_travis_or_appveyor
+from pyquickhelper.pycode import get_temp_folder, is_travis_or_appveyor, ExtTestCase
 from pyensae.file_helper.magic_file import MagicFile
 
 
@@ -29,7 +29,7 @@ from src.pyenbc.file_helper import run_jython, is_java_installed, download_java_
 from src.pyenbc.remote.magic_azure import MagicAzure
 
 
-class TestJython (unittest.TestCase):
+class TestJython (ExtTestCase):
 
     def test_simple_jython(self):
         fLOG(
@@ -170,7 +170,7 @@ class TestJython (unittest.TestCase):
         fLOG("**", cmd)
         res = mg.PYTHON(cmd, cell=script)
         fLOG(res)
-        assert os.path.exists(dest)
+        self.assertExists(dest)
 
         mg = MagicAzure()
         cmd = dest + " reservoir_sampling"

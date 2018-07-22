@@ -918,7 +918,6 @@ class MagicAzure(MagicClassWithHelpers):
             script = cell.replace("\r", "")
             with open(filename, "w", encoding="utf8") as f:
                 f.write(script)
-        return None
 
     @staticmethod
     def HIVE_azure_parser():
@@ -957,7 +956,6 @@ class MagicAzure(MagicClassWithHelpers):
             script = cell.replace("\r", "")
             with open(filename, "w", encoding="utf8") as f:
                 f.write(script)
-        return None
 
     @staticmethod
     def HIVE_azure_submit_parser():

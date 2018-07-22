@@ -131,7 +131,7 @@ class AzureClient():
         self.pseudo = pseudo
         if fLOG is None:
             def _log_(*l, **p):
-                return
+                pass
             self.LOG = _log_
         else:
             self.LOG = fLOG
