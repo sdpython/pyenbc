@@ -14,8 +14,9 @@ pandas_datareader
 pandocfilters
 paramiko
 Pillow
-pycrypto
-pycryptodomex
+# Choose either one or the other
+# pycrypto still not available on python 3.7
+pycryptodome # pycrypto
 pyensae
 pymyinstall
 pyquickhelper>=1.8
