@@ -44,7 +44,7 @@ def check(log=False):
 
 def load_ipython_extension(ip):
     """
-    to allow the call ``%load_ext pyensae``
+    to allow the call ``%load_ext pyenbc``
 
     @param      ip      from ``get_ipython()``
     """

@@ -41,7 +41,7 @@ class AzureClient():
 
         ::
 
-            from pyensae.remote.azure_connection import AzureClient
+            from pyenbc.remote.azure_connection import AzureClient
             cl = AzureClient("<blob_storage_service>",
                             "<primary_key>")
             bs = cl.open_blob_service()
@@ -57,7 +57,7 @@ class AzureClient():
 
         ::
 
-            from pyensae.remote.azure_connection import AzureClient
+            from pyenbc.remote.azure_connection import AzureClient
             cl = AzureClient("<blob_storage_service>",
                             "<primary_key>")
             bs = cl.open_blob_service()
@@ -1044,7 +1044,7 @@ class AzureClient():
                 hadoop_password = "..."
                 username = "..."
 
-                import pyensae
+                %load_ext pyenbc
                 client, bs = %hd_open
 
             Job queue ::

@@ -251,9 +251,9 @@ _unittests/ut_datasource/facebook*
 README
 *.jar
 
-src/pyenbc/file_helper/pigjar/*
-src/pyenbc/file_helper/hadoopjar/*
-src/pyenbc/file_helper/winutils/*
+src/pyenbc/filehelper/pigjar/*
+src/pyenbc/filehelper/hadoopjar/*
+src/pyenbc/filehelper/winutils/*
 build_help.bat
 _doc/sphinxdoc/source/blog/*.rst
 _doc/sphinxdoc/source/blog/rss.xml

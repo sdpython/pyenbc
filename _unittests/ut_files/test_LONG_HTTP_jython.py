@@ -8,7 +8,7 @@ import os
 import unittest
 from pyquickhelper.loghelper import fLOG
 from pyquickhelper.pycode import get_temp_folder, is_travis_or_appveyor, ExtTestCase
-from pyensae.file_helper.magic_file import MagicFile
+from pyensae.filehelper.magic_file import MagicFile
 
 
 try:
@@ -25,7 +25,7 @@ except ImportError:
     import src
 
 
-from src.pyenbc.file_helper import run_jython, is_java_installed, download_java_standalone
+from src.pyenbc.filehelper import run_jython, is_java_installed, download_java_standalone
 from src.pyenbc.remote.magic_azure import MagicAzure
 
 

@@ -24,8 +24,8 @@ except ImportError:
         sys.path.append(path)
     import src
 
-from src.pyenbc.file_helper import download_java_standalone, is_java_installed
-from src.pyenbc.file_helper.pig_helper import run_pig, download_pig_standalone
+from src.pyenbc.filehelper import download_java_standalone, is_java_installed
+from src.pyenbc.filehelper.pig_helper import run_pig, download_pig_standalone
 
 
 class TestPig (unittest.TestCase):
@@ -47,7 +47,7 @@ class TestPig (unittest.TestCase):
         except FileNotFoundError:
             # for some unknown reason, it requires to be done twice
             # due to FileNotFoundError: [Errno 2] No such file or directory:
-            # 'pyensae\\src\\pyensae\\file_helper\\pigjar\\pig-0.15.0\\contrib\\
+            # 'pyenbc\\src\\pyenbc\\filehelper\\pigjar\\pig-0.15.0\\contrib\\
             # piggybank\\java\\build\\classes\\org\\apache
             # \\pig\\piggybank\\storage\\IndexedStorage$IndexedStorageInputFormat$
             # IndexedStorageRecordReader$IndexedStorageRecordReaderComparator.class'

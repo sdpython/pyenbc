@@ -75,7 +75,7 @@ Functionalities
 * retrieve data for practical lessons (see :func:`download_data <pyenbc.datasource.http_retrieve.download_data>`)
 * magic commands to access a Cloudera Cluster and run PIG jobs (see :class:`MagicRemoteSSH <pyenbc.remote.magic_remote_ssh.MagicRemoteSSH>`)
 * magic commands to access Azure Blob Storage and HDInsight (see :class:`MagicAzure <pyenbc.remote.magic_azure.MagicAzure>`)
-* magic commands to display content of a folder in DataFrame (see :class:`MagicFile <pyenbc.file_helper.magic_file.MagicFile>`)
+* magic commands to display content of a folder in DataFrame (see :class:`MagicFile <pyenbc.filehelper.magic_file.MagicFile>`)
 
 Dependencies
 ------------

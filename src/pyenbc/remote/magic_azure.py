@@ -10,7 +10,7 @@ from IPython.core.display import HTML
 from pyquickhelper.loghelper import run_cmd
 from pyquickhelper.ipythonhelper import MagicClassWithHelpers, MagicCommandParser
 from .azure_connection import AzureClient, AzureException
-from ..file_helper.jython_helper import run_jython, download_java_standalone
+from ..filehelper.jython_helper import run_jython, download_java_standalone
 
 
 @magics_class
@@ -28,7 +28,7 @@ class MagicAzure(MagicClassWithHelpers):
 
         Try this::
 
-            %load_ext pyensae
+            %load_ext pyenbc
 
         The exception tells more about what goes wrong.
         Usually a module is missing.
@@ -50,7 +50,7 @@ class MagicAzure(MagicClassWithHelpers):
             blobstorage = blobservice["blob_storage"]
             blobpassword = blobservice["password"]
 
-            import pyensae
+            %load_ext pyenbc
             %blob_open
 
         This code avoids the author letting password in a notebook
@@ -59,7 +59,7 @@ class MagicAzure(MagicClassWithHelpers):
             blobstorage = "<username>"
             blobpassword = "****long*key*******=="
 
-            import pyensae
+            %load_ext pyenbc
             %blob_open
     """
 
@@ -174,7 +174,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_open`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
 
@@ -256,7 +256,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%hd_open`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
         """
@@ -367,7 +367,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_ls`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 df = cl.ls(bs, container, remotepath)
@@ -412,7 +412,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_lsl`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 df = cl.ls(bs, container, remotepath, add_metadata=True)
@@ -463,7 +463,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_up`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.upload(bs, container, remotepath, localfile)
@@ -523,7 +523,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_down`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.download(bs, container, remotepath, localfile)
@@ -587,7 +587,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_downmerge`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.download_merge(bs, container, remotepath, localfile)
@@ -647,7 +647,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_delete`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.delete_blob(bs, container, remotepath)
@@ -688,7 +688,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_rmr`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.delete_folder(bs, container, remotepath)
@@ -732,7 +732,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_copy`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.copy_blob(bs, container, dest, src)
@@ -781,7 +781,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%hd_queue`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.job_queue(showall=showall)
@@ -819,7 +819,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%hd_job_status`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.job_status(jobid)
@@ -858,7 +858,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%hd_job_kill`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.job_kill(jobid)
@@ -1001,7 +1001,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%HIVE_azure_submit`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.hive_submit(bs, cl.account_name, hive_file_name, dependencies, **options)
@@ -1073,7 +1073,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%hd_pig_submit`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.pig_submit(bs, cl.account_name, pig_file_name, dependencies, **options)
@@ -1143,7 +1143,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%hd_tail_stderr`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 cl.standard_outputs(job_id, bs, cl.account_name, ".")
@@ -1454,7 +1454,7 @@ class MagicAzure(MagicClassWithHelpers):
 
             The code for magic command ``%blob_head`` is equivalent to::
 
-                from pyensae.remote import AzureClient
+                from pyenbc.remote import AzureClient
                 cl = AzureClient(account_name, account_key, hadoop_server, hadoop_password, pseudo=username)
                 bs = cl.open_blob_service()
                 df = cl.df_head(bs, container, remotepath, localfile)

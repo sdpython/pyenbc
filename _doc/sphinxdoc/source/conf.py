@@ -12,8 +12,8 @@ set_sphinx_variables(__file__, "pyenbc", "Xavier Dupré", 2018,
 
 blog_root = "http://www.xavierdupre.fr/app/pyenbc/helpsphinx/"
 blog_background = False
-exclude_patterns += ["pyensae/file_helper/pigjar/*",
-                     "pyensae/file_helper/hadoopjar/*"]
+exclude_patterns += ["pyenbc/filehelper/pigjar/*",
+                     "pyenbc/filehelper/hadoopjar/*"]
 
 nblinks = {"code-r2python": blog_root + "pyensae/languages/rconverter.html"}
 
