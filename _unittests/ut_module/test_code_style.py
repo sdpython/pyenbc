@@ -53,6 +53,7 @@ class TestCodeStyle(ExtTestCase):
                          "Value 'codes' is unsubscriptable",
                          "Unused import src",
                          "test_LONG_HTTP_jython.py:171: E1128",
+                         "test_LONG_HTTP_jython.py:171: E1111",
                          ])
 
 
