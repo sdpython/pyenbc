@@ -94,21 +94,28 @@ def get_java_cmd():
 
 def is_java_installed(fLOG=noLOG):
     """
-    this function checks if java is installed
+    Checks if :epkg:`java` is installed.
 
     @return     boolean
     """
-    cmd = get_java_cmd() + " -showversion"
-    out, err = run_cmd(cmd, wait=True, log_error=False)
-    fLOG("OUT:\n", out)
-    fLOG("ERR:\n", err)
-    return "Java(TM)" in err
+    if sys.platform.startswith("win"):
+        cmd = get_java_cmd() + " -showversion"
+        out, err = run_cmd(cmd, wait=True, log_error=False)
+        fLOG("OUT:\n", out)
+        fLOG("ERR:\n", err)
+        return "Java(TM)" in err
+    else:
+        cmd = get_java_cmd() + " -showversion"
+        out, err = run_cmd(cmd, wait=True, log_error=False)
+        fLOG("OUT:\n", out)
+        fLOG("ERR:\n", err)
+        return "OpenJDK Runtime Environment" in err
 
 
 def get_jython_jar():
     """
-    this function assumes a file ``jython-standalone-x.x.x.jar``
-    is present in this directory, the function returns the file
+    This function assumes a file ``jython-standalone-x.x.x.jar``
+    is present in this directory, the function returns the file.
 
     @return     absolute path
     """
