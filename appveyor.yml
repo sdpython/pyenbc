@@ -27,6 +27,7 @@ install:
   - "%PYTHON%\\Scripts\\pip install pycodestyle prompt_toolkit ipykernel qgrid"
   - "%PYTHON%\\Scripts\\pymy_install3 --task=tool --source=zip graphviz"
   - "set PATH=%PATH%;C:\\projects\\pyenbc\\build\\update_modules\\Graphviz\\bin"
+  - "%PYTHON%\\Scripts\\pip install requirements.txt"
 build: off
 
 test_script:
