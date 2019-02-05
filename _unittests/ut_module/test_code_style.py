@@ -35,6 +35,7 @@ class TestCodeStyle(ExtTestCase):
                          "azure_transfer_api.py:20: W0231",
                          "Attribute '_service' defined outside __init__ ",
                          "magic_azure.py:303: W0612",
+                         "R1720",
                          ])
 
     def test_style_test(self):
@@ -54,6 +55,7 @@ class TestCodeStyle(ExtTestCase):
                          "Unused import src",
                          "test_LONG_HTTP_jython.py:171: E1128",
                          "test_LONG_HTTP_jython.py:171: E1111",
+                         "R1720",
                          ])
 
 
