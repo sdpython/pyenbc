@@ -1,9 +1,4 @@
 
-.. _l-README:
-
-README
-======
-
 .. image:: https://travis-ci.org/sdpython/pyenbc.svg?branch=master
     :target: https://travis-ci.org/sdpython/pyenbc
     :alt: Build status
@@ -41,33 +36,21 @@ README
     :target: http://www.xavierdupre.fr/app/pyenbc/helpsphinx/all_notebooks_coverage.html
     :alt: Notebook Coverage
 
-**Links:**
+.. _l-README:
 
-* `GitHub/pyenbc <https://github.com/sdpython/pyenbc/>`_
-* `documentation <http://www.xavierdupre.fr/app/pyenbc/helpsphinx/index.html>`_
-* `Blog <http://www.xavierdupre.fr/app/pyenbc/helpsphinx/blog/main_0000.html#ap-main-0>`_
-
-Description
------------
+pyendbc
+=======
 
 This project contains helpers used at the `ENSAE <http://www.ensae.fr/>`_
 for teachings available at
 `ENSAE - Programmation - Xavier Dupré <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/index.html>`_.
-
-Functionalities
----------------
+It is not used anymore and probably not wworking anymore.
+It implements a pythonic way to access a remote Linux machine
+with a python *putty* and also:
 
 * magic commands to access a Cloudera Cluster and run PIG jobs
 * magic commands to access Azure Blob Storage and HDInsight
 * magic commands to display content of a folder in DataFrame
-
-Dependencies
-------------
-
-* `numpy <http://www.numpy.org/>`_
-* `pandas <http://pandas.pydata.org/>`_
-* `pyensae <https://pypi.python.org/pypi/pyensae/>`_
-* `pyquickhelper <https://pypi.python.org/pypi/pyquickhelper/>`_
 
 Class *ASSHClient* requires:
 
@@ -87,10 +70,9 @@ to send commands to a remote commands through a SSH connection:
 
 The magic commands will be automatically enabled if the module is imported from a notebook.
 
-Contributions
--------------
+**Links:**
 
-Started in 2013/08.
+* `GitHub/pyenbc <https://github.com/sdpython/pyenbc/>`_
+* `documentation <http://www.xavierdupre.fr/app/pyenbc/helpsphinx/index.html>`_
+* `Blog <http://www.xavierdupre.fr/app/pyenbc/helpsphinx/blog/main_0000.html#ap-main-0>`_
 
-* First contributor: `Xavier Dupré <http://www.xavierdupre.fr/>`_.
-* Others contributors: ENSAE's students.
