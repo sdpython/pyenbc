@@ -21,6 +21,5 @@ pyensae>=1.2.788
 pymyinstall
 pyquickhelper>=1.8
 qgrid
-sphinxjp.themes.basicstrap
-sphinxjp.themes.sphinxjp
+sphinx_readable_theme
 wheel
