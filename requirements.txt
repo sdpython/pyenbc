@@ -19,7 +19,7 @@ Pillow
 pycryptodome # pycrypto
 pyensae>=1.2.788
 pymyinstall
-pyquickhelper>=1.8
+pyquickhelper>=1.9
 qgrid
 sphinx_readable_theme
 wheel
