@@ -21,5 +21,6 @@ pyensae>=1.2.788
 pymyinstall
 pyquickhelper>=1.9
 qgrid
+sphinx>=2.0
 sphinx_readable_theme
 wheel
