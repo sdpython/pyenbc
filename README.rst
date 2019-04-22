@@ -75,4 +75,3 @@ The magic commands will be automatically enabled if the module is imported from 
 * `GitHub/pyenbc <https://github.com/sdpython/pyenbc/>`_
 * `documentation <http://www.xavierdupre.fr/app/pyenbc/helpsphinx/index.html>`_
 * `Blog <http://www.xavierdupre.fr/app/pyenbc/helpsphinx/blog/main_0000.html#ap-main-0>`_
-

@@ -1,31 +1,13 @@
 """
 @brief      test log(time=203s)
 """
-
-
-import sys
 import os
 import unittest
 import random
 from pyquickhelper.loghelper import fLOG
 from pyquickhelper.pycode import is_travis_or_appveyor
-
-
-try:
-    import src
-except ImportError:
-    path = os.path.normpath(
-        os.path.abspath(
-            os.path.join(
-                os.path.split(__file__)[0],
-                "..",
-                "..")))
-    if path not in sys.path:
-        sys.path.append(path)
-    import src
-
-from src.pyenbc.filehelper import download_java_standalone, is_java_installed
-from src.pyenbc.filehelper.pig_helper import run_pig, download_pig_standalone
+from pyenbc.filehelper import download_java_standalone, is_java_installed
+from pyenbc.filehelper.pig_helper import run_pig, download_pig_standalone
 
 
 class TestPig (unittest.TestCase):

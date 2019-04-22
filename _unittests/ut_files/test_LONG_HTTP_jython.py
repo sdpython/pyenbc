@@ -9,24 +9,8 @@ import unittest
 from pyquickhelper.loghelper import fLOG
 from pyquickhelper.pycode import get_temp_folder, is_travis_or_appveyor, ExtTestCase
 from pyensae.filehelper.magic_file import MagicFile
-
-
-try:
-    import src
-except ImportError:
-    path = os.path.normpath(
-        os.path.abspath(
-            os.path.join(
-                os.path.split(__file__)[0],
-                "..",
-                "..")))
-    if path not in sys.path:
-        sys.path.append(path)
-    import src
-
-
-from src.pyenbc.filehelper import run_jython, is_java_installed, download_java_standalone
-from src.pyenbc.remote.magic_azure import MagicAzure
+from pyenbc.filehelper import run_jython, is_java_installed, download_java_standalone
+from pyenbc.remote.magic_azure import MagicAzure
 
 
 class TestJython (ExtTestCase):
