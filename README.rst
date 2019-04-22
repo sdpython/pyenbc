@@ -38,8 +38,8 @@
 
 .. _l-README:
 
-pyendbc
-=======
+pyenbc: helper to submit jobs from a notebeook
+==============================================
 
 This project contains helpers used at the `ENSAE <http://www.ensae.fr/>`_
 for teachings available at
