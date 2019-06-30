@@ -1,10 +1,12 @@
+
 =======
 History
 =======
 
-* :release:`1.1.???? <2017-??-??>`
-* :bug:`15`: StockPrices: start and end date are not taking into account with the default data provider
-* :feature:`9`: switch from Yahoo Finance to Google as the default provider
-  for financial data
-* :feature:`11`: create graph image with blockdiag
-* :feature:`13`: add a class *TableFormula* as an example to extend pandas dataframe
+current - 2018-04-14 - 0.00Mb
+=============================
+
+* :issue:`1`: rename flake8 into code_style (2018-04-14)
+
+1.2.4 - 2017-11-28 - 0.05Mb
+===========================
