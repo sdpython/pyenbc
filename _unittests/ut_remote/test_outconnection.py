@@ -33,7 +33,7 @@ class TestOutConnected (ExtTestCase):
         for _ in out.split("\n"):
             __ = _.split()
             fLOG(len(__), __)
-        parse = ASSHClient.parse_lsout(out)
+        parse = ASSHClient.parse_lsout(out, local_schema=True)
         fLOG(parse.columns)
         self.assertEqual(list(parse.columns),
                          ['attributes', 'code', 'alias', 'folder', 'size', 'unit', 'name', 'isdir'])

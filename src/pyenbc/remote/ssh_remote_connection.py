@@ -405,7 +405,7 @@ class ASSHClient():
                     # we merge 2 columns
                     out_ = [_[:5] + [" ".join(_[5:7])] + _[7:] for _ in out_]
             df = pandas.DataFrame(data=out_, columns=names)
-        except AssertionError as e:
+        except (AssertionError, ValueError) as e:
             out = "\n".join(out)
             buf = io.StringIO(out)
             try:
