@@ -30,10 +30,6 @@ pyenbc documentation
 .. image:: https://codecov.io/github/sdpython/pyenbc/coverage.svg?branch=master
     :target: https://codecov.io/github/sdpython/pyenbc?branch=master
 
-.. image:: https://badge.waffle.io/sdpython/pyenbc.png?label=to%20do&title=to%20do
-    :alt: Waffle
-    :target: https://waffle.io/sdpython/pyenbc
-
 .. image:: nbcov.png
     :target: http://www.xavierdupre.fr/app/pyenbc/helpsphinx/all_notebooks_coverage.html
     :alt: Notebook Coverage

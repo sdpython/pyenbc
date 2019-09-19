@@ -28,10 +28,6 @@
     :alt: GitHub Issues
     :target: https://github.com/sdpython/pyenbc/issues
 
-.. image:: https://badge.waffle.io/sdpython/pyenbc.png?label=to%20do&title=to%20do
-    :alt: Waffle
-    :target: https://waffle.io/sdpython/pyenbc
-
 .. image:: http://www.xavierdupre.fr/app/pyenbc/helpsphinx/_images/nbcov.png
     :target: http://www.xavierdupre.fr/app/pyenbc/helpsphinx/all_notebooks_coverage.html
     :alt: Notebook Coverage
