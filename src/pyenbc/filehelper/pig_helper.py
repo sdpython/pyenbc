@@ -14,11 +14,12 @@ from pyensae.datasource.http_retrieve import download_data
 from .jython_helper import get_java_cmd, get_java_path
 
 PIG_VERSION = "0.17.0"
-HADOOP_VERSION = "2.9.1"
+HADOOP_VERSION = "3.2.0"
 
 
 def download_pig_standalone(pig_version=PIG_VERSION,
-                            hadoop_version=HADOOP_VERSION, fLOG=noLOG):
+                            hadoop_version=HADOOP_VERSION,
+                            fLOG=noLOG):
     """
     Downloads the standalone :epkg:`jython`.
     If it does not exists, we should version ``HADOOP_VERSION``
@@ -33,7 +34,7 @@ def download_pig_standalone(pig_version=PIG_VERSION,
     fails, it might to due to very long path when unzipping the
     downloaded file.
 
-t    :epkg:`Hadoop` is downloaded from one of the websites
+    :epkg:`Hadoop` is downloaded from one of the websites
     referenced at
     `Apache Software Foundation <http://www.apache.org/dyn/closer.cgi/hadoop/common/>`_.
     Check the source to see which one was chosen.
@@ -358,8 +359,9 @@ def run_pig(pigfile, argv=None, pig_path=None, hadoop_path=None,
     cmd = " ".join(clean(i, _) for i, _ in enumerate(cmd))
     out, err = run_cmd(
         cmd, wait=True, sin=None, communicate=True, timeout=timeout, shell=False)
-    out = "PIG_CONF_DIR={0}\nJAVA_HOME={1}\nHADOOP_HOME={2}\n{3}\n{4}".format(os.environ.get('PIG_CONF_DIR', ''),
-                                                                              os.environ.get('JAVA_HOME', ''), os.environ.get(
-                                                                                  'HADOOP_HOME', ''),
-                                                                              "\n".join("add jar: '{0}'".format(j) for j in jarsall), out)
+    out = "PIG_CONF_DIR={0}\nJAVA_HOME={1}\nHADOOP_HOME={2}\n{3}\n{4}".format(
+        os.environ.get('PIG_CONF_DIR', ''), os.environ.get('JAVA_HOME', ''),
+        os.environ.get('HADOOP_HOME', ''),
+        "\n".join("add jar: '{0}'".format(j) for j in jarsall),
+        out)
     return out, err
