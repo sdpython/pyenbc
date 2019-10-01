@@ -236,7 +236,7 @@ class AzureClient():
                     as_df=False)
                 res.extend(r)
             if as_df:
-                import pandas
+                import pandas  # pylint: disable=C0415
                 return pandas.DataFrame(res)
             else:
                 return res
@@ -264,7 +264,7 @@ class AzureClient():
 
                 res.append(obs)
             if as_df:
-                import pandas
+                import pandas  # pylint: disable=C0415
                 if len(res) > 0:
                     return pandas.DataFrame(res)
                 else:
@@ -569,7 +569,7 @@ class AzureClient():
                 st = io.StringIO(text[:pos])
             else:
                 st = io.StringIO(text)
-            import pandas
+            import pandas  # pylint: disable=C0415
             return pandas.read_csv(st, **options)
         else:
             return text

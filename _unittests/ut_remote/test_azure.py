@@ -40,7 +40,7 @@ class TestAzure (unittest.TestCase):
             OutputPrint=__name__ == "__main__")
         if self.client is None:
             return
-        import azure.common
+        import azure.common  # pylint: disable=C0415
         try:
             df = self.client.ls(self.blob_serv, None)
         except azure.common.AzureException as e:
@@ -73,7 +73,7 @@ class TestAzure (unittest.TestCase):
         files = [os.path.join(data, _) for _ in files]
         files = [_ for _ in files if os.path.isfile(_) and "paris" in _]
 
-        import azure.common
+        import azure.common  # pylint: disable=C0415
         try:
             if not self.client.exists(self.blob_serv, self.container, "unittest"):
                 # no folder creation
@@ -211,7 +211,7 @@ class TestAzure (unittest.TestCase):
         files = [os.path.join(data, _) for _ in files]
         files = [_ for _ in files if os.path.isfile(_) and "paris" in _]
 
-        import azure.common
+        import azure.common  # pylint: disable=C0415
         try:
             content = self.client.ls(
                 self.blob_serv, self.container, "unittest2")

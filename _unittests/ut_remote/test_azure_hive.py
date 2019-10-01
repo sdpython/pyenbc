@@ -66,7 +66,7 @@ class TestAzureHive(unittest.TestCase):
             f.write(hive)
 
         fLOG("submit")
-        import azure.common
+        import azure.common  # pylint: disable=C0415
         try:
             job = self.client.hive_submit(self.blob_serv, self.container,
                                           hivefile, params=dict(UTT="unittest3"))

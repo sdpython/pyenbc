@@ -52,7 +52,7 @@ class ASSHClient():
         """
         connect
         """
-        import paramiko
+        import paramiko  # pylint: disable=C0415
         self.connection = paramiko.SSHClient()
         self.connection.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         self.connection.connect(
@@ -241,7 +241,7 @@ class ASSHClient():
                     return s
                 func = idfunc
             elif format == "plain":
-                import ansiconv
+                import ansiconv  # pylint: disable=C0415
 
                 def convert_plain(s):
                     "local function"
@@ -384,7 +384,7 @@ class ASSHClient():
 
         .. versionadded:: 1.1
         """
-        import pandas
+        import pandas  # pylint: disable=C0415
         if local_schema:
             names = ["attributes", "code", "alias", "folder",
                      "size", "unit", "name"]

@@ -350,7 +350,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
             cmd = exe + " " + dest + " " + args
 
             out, err = ssh.execute_command(cmd, no_exception=True)
-            if args.raw_output:
+            if args.raw_output:  # pylint: disable=E1101
                 if len(err) > 0:
                     return err
                 else:
