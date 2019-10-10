@@ -18,6 +18,7 @@ Pillow
 # pycrypto still not available on python 3.7
 pycryptodome # pycrypto
 pyensae>=1.2.788
+pylint>=2.4.2
 pymyinstall
 pyquickhelper>=1.9.3100
 qgrid
