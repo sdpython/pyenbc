@@ -130,7 +130,7 @@ class AzureClient():
         self.hadoop_user_name = hadoop_user_name
         self.pseudo = pseudo
         if fLOG is None:
-            def _log_(*l, **p):
+            def _log_(*args, **kwargs):
                 pass
             self.LOG = _log_
         else:
