@@ -161,6 +161,6 @@ if not r:
         install_requires=["pyquickhelper>=1.5.2259"],
         extras_require={
             'remote.ssh_remote_connection': ['paramiko', 'ansiconv', 'ansi2html', 'chardet'],
-            'remote.azure_connection': ['azure'],
+            'remote.azure_connection': ['azure-common', 'azure-storage-blob'],
         },
     )

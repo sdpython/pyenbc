@@ -1,7 +1,8 @@
 ansi2html
 ansiconv
 antlr4-python3-runtime
-azure
+azure-common
+azure-storage-blob
 colormap
 coverage
 dbfread
