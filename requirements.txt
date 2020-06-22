@@ -1,3 +1,4 @@
+autopep8
 ansi2html
 ansiconv
 antlr4-python3-runtime
@@ -8,15 +9,16 @@ coverage
 dbfread
 easydev
 folium
+jupyter_sphinx
 jyquickhelper
 keyring
 Mako
+matplotlib
 pandas_datareader
 pandocfilters
 paramiko
 Pillow
-# Choose either one or the other
-# pycrypto still not available on python 3.7
+pycodestyle
 pycryptodome # pycrypto
 pyensae>=1.2.788
 pylint>=2.4.2
