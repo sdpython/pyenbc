@@ -24,5 +24,4 @@ pymyinstall
 pyquickhelper>=1.9.3325
 qgrid
 sphinx>=2.0
-sphinx_readable_theme
 wheel
