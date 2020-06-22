@@ -26,4 +26,5 @@ pymyinstall
 pyquickhelper>=1.9.3325
 qgrid
 sphinx>=2.0
+sphinxcontrib.imagesvg
 wheel
