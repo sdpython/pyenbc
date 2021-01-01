@@ -8,7 +8,7 @@ turned into functions.
 import sys
 
 
-__version__ = "1.3.71"
+__version__ = "1.3.79"
 __author__ = "Xavier Dupré"
 __github__ = "https://github.com/sdpython/pyenbc"
 __url__ = "http://www.xavierdupre.fr/app/pyenbc/helpsphinx/index.html"
