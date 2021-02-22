@@ -17,7 +17,7 @@ exclude_patterns += ["pyenbc/filehelper/pigjar/*",
                      "pyenbc/filehelper/hadoopjar/*"]
 
 html_context = {
-    'css_files': get_default_stylesheet() + ['_static/my-styles.css'],
+    'css_files': get_default_stylesheet(['_static/my-styles.css']),
 }
 
 epkg_dictionary["blockdiag"] = 'http://blockdiag.com/'
