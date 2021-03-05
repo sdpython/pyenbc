@@ -39,7 +39,7 @@ pyenbc: helper to submit jobs from a notebeook
 
 This project contains helpers used at the `ENSAE <http://www.ensae.fr/>`_
 for teachings available at
-`ENSAE - Programmation - Xavier Dupré <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx3/index.html>`_.
+`ENSAE - Programmation - Xavier Dupré <http://www.xavierdupre.fr/app/ensae_teaching_cs/helpsphinx/index.html>`_.
 It is not used anymore and probably not wworking anymore.
 It implements a pythonic way to access a remote Linux machine
 with a python *putty* and also:
