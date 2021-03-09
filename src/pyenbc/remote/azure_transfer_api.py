@@ -4,7 +4,10 @@
 
 .. versionadded:: 1.1
 """
-import azure
+try:
+    from azure.common import AzureMissingResourceHttpError
+except ImportError:
+    AzureMissingResourceHttpError = Exception
 from pyquickhelper.filehelper import TransferAPI
 import pyquickhelper.loghelper as pyqlog
 from .azure_drive import AzureDrive
@@ -54,5 +57,5 @@ class AzureTransferAPI(TransferAPI):
         else:
             try:
                 return self._azure.download_data(path)
-            except azure.common.AzureMissingResourceHttpError:
+            except AzureMissingResourceHttpError:
                 return None
