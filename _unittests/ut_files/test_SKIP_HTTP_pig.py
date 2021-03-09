@@ -12,6 +12,7 @@ from pyenbc.filehelper.pig_helper import run_pig, download_pig_standalone
 
 class TestPig (unittest.TestCase):
 
+    @unittest.skipIf(True, reason="PIG not maintained anymore")
     def test_simple_pig(self):
         fLOG(
             __file__,

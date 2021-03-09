@@ -14,7 +14,7 @@ from pyensae.datasource.http_retrieve import download_data
 from .jython_helper import get_java_cmd, get_java_path
 
 PIG_VERSION = "0.17.0"
-HADOOP_VERSION = "3.2.0"
+HADOOP_VERSION = "3.3.0"
 
 
 def download_pig_standalone(pig_version=PIG_VERSION,

@@ -27,6 +27,7 @@ class AzureTransferAPI(TransferAPI):
         @param      container   container name
         @param      fLOG        logging function
         """
+        TransferAPI.__init__(self, fLOG)
         self.fLOG = fLOG if fLOG else pyqlog.noLOG
         self._azure = AzureDrive(
             blob, key, fLOG=self.fLOG, container=container)
