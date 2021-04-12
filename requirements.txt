@@ -23,7 +23,8 @@ pycryptodome # pycrypto
 pyensae>=1.2.788
 pylint>=2.4.2
 pymyinstall
-pyquickhelper>=1.9.3325
+pyquickhelper>=1.10
+pyquicksetup
 qgrid
 sphinx>=2.0
 sphinxcontrib.imagesvg

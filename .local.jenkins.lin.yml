@@ -15,7 +15,7 @@ install:
   - $PYINT -m pip freeze
 
 script:
-  - { CMD: "$PYINT -u setup.py unittests", NAME: "UT" }
+  - { CMD: "$PYINT -u setup.py unittests --covtoken=c4a48da1-7385-44b7-a8ab-fe7ca8c378e0", NAME: "UT" }
   - { CMD: "$PYINT -u setup.py unittests_LONG", NAME: "UT_LONG", TIMEOUT: 900}
   - { CMD: "$PYINT -u setup.py unittests -e .*SKIP.* -g .*pig.*", NAME: "UT_SKIP", TIMEOUT: 1500}
   - { CMD: "$PYINT -u setup.py unittests -e .*pig.*", NAME: "UT_SKIP_PIG", TIMEOUT: 1500}
