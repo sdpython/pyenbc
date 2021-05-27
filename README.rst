@@ -1,6 +1,6 @@
 
-.. image:: https://travis-ci.org/sdpython/pyenbc.svg?branch=master
-    :target: https://travis-ci.org/sdpython/pyenbc
+.. image:: https://travis-ci.com/sdpython/pyenbc.svg?branch=master
+    :target: https://travis-ci.com/sdpython/pyenbc
     :alt: Build status
 
 .. image:: https://ci.appveyor.com/api/projects/status/scv9gmggw7qc462i?svg=true
