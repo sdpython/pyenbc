@@ -17,10 +17,6 @@
     :alt: MIT License
     :target: http://opensource.org/licenses/MIT
 
-.. image:: https://requires.io/github/sdpython/pyenbc/requirements.svg?branch=master
-     :target: https://requires.io/github/sdpython/pyenbc/requirements/?branch=master
-     :alt: Requirements Status
-
 .. image:: https://codecov.io/github/sdpython/pyenbc/coverage.svg?branch=master
     :target: https://codecov.io/github/sdpython/pyenbc?branch=master
 
