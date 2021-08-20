@@ -43,7 +43,7 @@ class TestPig (unittest.TestCase):
             os.mkdir(temp)
 
         rnd = os.path.join(temp, "random.sample.txt")
-        with open(rnd, "w") as f:
+        with open(rnd, "w") as f:  # pylint: disable=W1514
             for _ in range(0, 1000):
                 x = random.random()
                 f.write(str(x) + "\n")
