@@ -15,7 +15,7 @@ readme = 'README.rst'
 history = "HISTORY.rst"
 requirements = None
 
-KEYWORDS = project_var_name + ', cluster, Hadoop, PIG, HIVE'
+KEYWORDS = [project_var_name, 'cluster', 'Hadoop', 'PIG', 'HIVE']
 DESCRIPTION = """Simplifies remote access to clusters."""
 CLASSIFIERS = [
     'Programming Language :: Python :: 3',
