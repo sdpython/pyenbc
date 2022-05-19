@@ -410,9 +410,10 @@ class ASSHClient():
             buf = io.StringIO(out)
             try:
                 df = pandas.read_fwf(buf, names=names, index=False)
-            except ValueError as e:
+            except ValueError:
                 raise ValueError(
-                    "unable to parse output:\nSCHEMA:\n{1}\nOUT:\n{0}".format(kout, ",".join(names))) from e
+                    "unable to parse output:\nSCHEMA:\n{1}\nOUT:\n{0}"
+                    "".format(kout, ",".join(names))) from e
 
         df["isdir"] = df.apply(lambda r: r["attributes"][0] == "d", axis=1)
         return df
