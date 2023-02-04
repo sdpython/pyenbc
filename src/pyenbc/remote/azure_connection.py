@@ -180,11 +180,11 @@ class AzureClient():
         usual
         """
         mes = "AzureClient [blob:({0},{1}), hadoop:({2},{3},{4})]".format(
-                AzureClient.mask_string(self.account_name),
-                AzureClient.mask_string(self.account_key),
-                AzureClient.mask_string(self.hadoop_name),
-                AzureClient.mask_string(self.hadoop_key),
-                AzureClient.mask_string(self.hadoop_user_name))
+            AzureClient.mask_string(self.account_name),
+            AzureClient.mask_string(self.account_key),
+            AzureClient.mask_string(self.hadoop_name),
+            AzureClient.mask_string(self.hadoop_key),
+            AzureClient.mask_string(self.hadoop_user_name))
         return mes
 
     def open_blob_service(self):
