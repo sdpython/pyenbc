@@ -180,11 +180,11 @@ class AzureClient():
         usual
         """
         mes = "AzureClient [blob:({0},{1}), hadoop:({2},{3},{4})]".format(
-                AzureClient.mask_string(self.account_name), AzureClient.mask_string(
-            self.account_key), AzureClient.mask_string(
-            self.hadoop_name),
-            AzureClient.mask_string(self.hadoop_key),
-            AzureClient.mask_string(self.hadoop_user_name))
+                AzureClient.mask_string(self.account_name),
+                AzureClient.mask_string(self.account_key),
+                AzureClient.mask_string(self.hadoop_name),
+                AzureClient.mask_string(self.hadoop_key),
+                AzureClient.mask_string(self.hadoop_user_name))
         return mes
 
     def open_blob_service(self):
@@ -888,8 +888,7 @@ class AzureClient():
         wasb = self.wasb_to_file(container_name, res[0])
         if dependencies is not None:
             wasbdep = ",".join(
-                self.wasb_to_file(
-                    container_name,_) for _ in res[1:])
+                self.wasb_to_file(container_name, _) for _ in res[1:])
         else:
             wasbdep = None
 
@@ -1031,7 +1030,7 @@ class AzureClient():
         # submit the job
         r = requests.post(webHCatUrl,
                           auth=(self.hadoop_user_name, self.hadoop_key),
-                          data=params)
+                          data=params, timeout=100)
 
         if r.status_code != 200:
             raise AzureException(
