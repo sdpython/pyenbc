@@ -30,14 +30,16 @@ class AzureClient():
     * put_block_blob_from_text, put_page_blob_from_file, get_blob, get_blob
 
     See `How to use Blob storage from Python
-    <https://azure.microsoft.com/en-us/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+    <https://azure.microsoft.com/en-us/documentation/articles/
+    storage-python-how-to-use-blob-storage/>`_.
 
     .. exref::
         :title: Get the list of containers and files from a blob storage?
         :tag: Azure
 
         The functionalities of a ``BlobService`` are described in
-        `blockblobservice.py <https://github.com/Azure/azure-storage-python/blob/master/azure/storage/blob/blockblobservice.py>`_.
+        `blockblobservice.py <https://github.com/Azure/
+        azure-storage-python/blob/master/azure/storage/blob/blockblobservice.py>`_.
 
         ::
 
@@ -76,7 +78,8 @@ class AzureClient():
     `WebHCat API <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference>`_.
     The error codes can be found here:
     `Error Codes and Responses
-    <https://cwiki.apache.org/confluence/display/Hive/WebHCat+UsingWebHCat#WebHCatUsingWebHCat-ErrorCodesandResponses>`_.
+    <https://cwiki.apache.org/confluence/display/Hive/
+    WebHCat+UsingWebHCat#WebHCatUsingWebHCat-ErrorCodesandResponses>`_.
 
     .. versionchanged::
         PSEUDO, CONTAINER, SCRIPT will be passed to the script as parameters
@@ -118,7 +121,8 @@ class AzureClient():
         @param      blob_key        account key for the blob storage
         @param      hadoop_name     hadoop server name (can be None if HDInsight is not used)
         @param      hadoop_key      hadoop key (can be None if HDInsight is not used)
-        @param      pseudo          sometimes, the same identification is used to connect to HDInsight,
+        @param      pseudo          sometimes, the same identification
+                                    is used to connect to HDInsight,
                                     the pseudo is meant to avoid collisions
         @param      fLOG            logging function
 
@@ -175,11 +179,12 @@ class AzureClient():
         """
         usual
         """
-        mes = "AzureClient [blob:({0},{1}), hadoop:({2},{3},{4})]".format(AzureClient.mask_string(self.account_name),
-                                                                          AzureClient.mask_string(
+        mes = "AzureClient [blob:({0},{1}), hadoop:({2},{3},{4})]".format(
+                AzureClient.mask_string(self.account_name), AzureClient.mask_string(
             self.account_key), AzureClient.mask_string(
             self.hadoop_name),
-            AzureClient.mask_string(self.hadoop_key), AzureClient.mask_string(self.hadoop_user_name))
+            AzureClient.mask_string(self.hadoop_key),
+            AzureClient.mask_string(self.hadoop_user_name))
         return mes
 
     def open_blob_service(self):
@@ -292,7 +297,8 @@ class AzureClient():
 
         The code comes from
         `Utilisation du service de stockage d'objets blob à partir de Python
-        <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+        <http://azure.microsoft.com/fr-fr/documentation/articles/
+        storage-python-how-to-use-blob-storage/>`_.
         """
         if isinstance(file_path, list):
             res = []
@@ -357,7 +363,8 @@ class AzureClient():
 
         The code comes from
         `Utilisation du service de stockage d'objets blob à partir de Python
-        <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+        <http://azure.microsoft.com/fr-fr/documentation/articles/
+        storage-python-how-to-use-blob-storage/>`_.
 
         .. versionadded:: 1.1
         """
@@ -418,7 +425,8 @@ class AzureClient():
 
         The code comes from
         `Utilisation du service de stockage d'objets blob à partir de Python
-        <http://azure.microsoft.com/fr-fr/documentation/articles/storage-python-how-to-use-blob-storage/>`_.
+        <http://azure.microsoft.com/fr-fr/documentation/articles/
+        storage-python-how-to-use-blob-storage/>`_.
 
         .. versionchanged:: 1.1
             Parameters *append*, *chunk_size* were added.
@@ -545,9 +553,10 @@ class AzureClient():
         @param      stop_at             stop at a given size (None to avoid stopping)
         @param      encoding            encoding
         @param      as_df               result as a dataframe or a string
-        @param      merge               if True, *blob_name* is a folder, method @see me download_merge is called
-        @param      options             see  `read_csv <http://pandas.pydata.org/pandas-docs/version/0.17.0/generated/pandas.read_csv.html?
-                                        highlight=read_csv#pandas.read_csv>`_
+        @param      merge               if True, *blob_name* is a folder,
+                                        method @see me download_merge is called
+        @param      options             see  `read_csv <https://pandas.pydata.org/docs/
+                                        reference/api/pandas.read_csv.html>`_
         @return                         local file or bytes if *file_path* is None
 
         .. versionadded:: 1.1
@@ -714,8 +723,8 @@ class AzureClient():
         @return                     return a url to blob file (pig script for example)
         """
         blob_file = self._interpret_path(blob_file)
-        return 'wasb://{1}@{0}.blob.core.windows.net/{2}'.format(container_name,
-                                                                 self.account_name, blob_file)
+        return 'wasb://{1}@{0}.blob.core.windows.net/{2}'.format(
+            container_name, self.account_name, blob_file)
 
     def wasb_prefix(self, container_name):
         """
@@ -743,7 +752,8 @@ class AzureClient():
         webHCatUrl = self.url_webHCatUrl("status")
 
         r = requests.get(webHCatUrl,
-                         auth=(self.hadoop_user_name, self.hadoop_key))
+                         auth=(self.hadoop_user_name, self.hadoop_key),
+                         timeout=100)
         if r.status_code != 200:
             raise AzureException(
                 "unable to the status of server: " +
@@ -767,7 +777,8 @@ class AzureClient():
         webHCatUrl = self.url_webHCatUrl("version/hive")
 
         r = requests.get(webHCatUrl,
-                         auth=(self.hadoop_user_name, self.hadoop_key))
+                         auth=(self.hadoop_user_name, self.hadoop_key),
+                         timeout=100)
         if r.status_code != 200:
             raise AzureException(
                 "unable to the version of server: " +
@@ -775,16 +786,19 @@ class AzureClient():
                 r)
         return r.json()
 
-    def pig_submit(self, blob_service, container_name, pig_file, dependencies=None, status_dir=None,
+    def pig_submit(self, blob_service, container_name, pig_file,
+                   dependencies=None, status_dir=None,
                    stop_on_failure=True, params=None):
         """
         Submits a :epkg:`PIG` job, the function uploads it to the cluster
         as well as the dependencies.
 
         The code comes from `How to use HDInsight from Linux
-        <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/how-to-use-hdinsight-from-linux.aspx>`_
+        <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/
+        how-to-use-hdinsight-from-linux.aspx>`_
         and `start a Pig + Jython job in HDInsight thru WebHCat
-        <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
+        <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/
+        start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
         The API is described at `Pig Job — POST pig
         <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Pig>`_.
 
@@ -792,7 +806,8 @@ class AzureClient():
         @param      container_name  name of a container
         @param      pig_file        path to the job in the blob storage
         @param      dependencies    dependencies
-        @param      status_dir      folder used by Hadoop to store job's progress, it should contain
+        @param      status_dir      folder used by Hadoop to store job's progress,
+                                    it should contain
                                     your alias if you want to avoid collision with others' jobs
         @param      stop_on_failure stop on failure, do not wait as long as possible
         @param      params          to
@@ -804,7 +819,8 @@ class AzureClient():
 
             The script PIG must include an instruction ``LOAD``.
             This instruction use file name defined with the
-            `wasb syntax <http://azure.microsoft.com/en-us/documentation/articles/hdinsight-use-blob-storage/>`_.
+            `wasb syntax <http://azure.microsoft.com/en-us/
+            documentation/articles/hdinsight-use-blob-storage/>`_.
 
             If you place the string ``$CONTAINER`` before a stream name,
             it should be replaced by the corresponding wasb syntax associated
@@ -836,7 +852,8 @@ class AzureClient():
                 script = '''
                     myinput = LOAD '$CONTAINER/input.csv'
                             using PigStorage(',')
-                            AS (index:long, sequence, tag, timestamp:long, dateformat, x:double,y:double, z:double, activity) ;
+                            AS (index:long, sequence, tag, timestamp:long,
+                            dateformat, x:double,y:double, z:double, activity) ;
                     filt = FILTER myinput BY activity == 'walking' ;
                     STORE filt INTO '$PSEUDO/output.csv' USING PigStorage() ;
                     '''
@@ -872,9 +889,7 @@ class AzureClient():
         if dependencies is not None:
             wasbdep = ",".join(
                 self.wasb_to_file(
-                    container_name,
-                    _) for _ in res[
-                    1:])
+                    container_name,_) for _ in res[1:])
         else:
             wasbdep = None
 
@@ -907,15 +922,16 @@ class AzureClient():
                 container_name, status_dir + "/" + os.path.split(pig_file)[-1] + ".log")
         else:
             status_dir = self.default_parameters["SCRIPTPIG"]
-            params['statusdir'] = self.wasb_to_file(container_name, self.default_parameters[
-                                                    "SCRIPTPIG"] + "/" + os.path.split(pig_file)[-1] + ".log")
+            params['statusdir'] = self.wasb_to_file(
+                container_name, self.default_parameters["SCRIPTPIG"] +
+                "/" + os.path.split(pig_file)[-1] + ".log")
 
         webHCatUrl = self.url_webHCatUrl("pig")
 
         # submit the job
         r = requests.post(webHCatUrl,
                           auth=(self.hadoop_user_name, self.hadoop_key),
-                          data=params)
+                          data=params, timeout=100)
 
         if r.status_code != 200:
             raise AzureException(
@@ -929,9 +945,11 @@ class AzureClient():
         as well as the dependencies.
 
         The code comes from `How to use HDInsight from Linux
-        <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/how-to-use-hdinsight-from-linux.aspx>`_
+        <http://blogs.msdn.com/b/benjguin/archive/2014/02/18/
+        how-to-use-hdinsight-from-linux.aspx>`_
         and `start a Pig + Jython job in HDInsight thru WebHCat
-        <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
+        <http://blogs.msdn.com/b/benjguin/archive/2014/03/21/
+        start-a-pig-jython-job-in-hdinsight-thru-webhcat.aspx>`_.
         The API is described at `Pig Job — POST pig
         <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Pig>`_.
 
@@ -939,7 +957,8 @@ class AzureClient():
         @param      container_name  name of a container
         @param      hive_file       path to the job in the blob storage
         @param      dependencies    dependencies
-        @param      status_dir      folder used by Hadoop to store job's progress, it should contain
+        @param      status_dir      folder used by Hadoop to store job's progress,
+                                    it should contain
                                     your alias if you want to avoid collision with others' jobs
         @param      stop_on_failure stop on failure, do not wait as long as possible
         @param      params          to
@@ -1001,8 +1020,9 @@ class AzureClient():
                 container_name, status_dir + "/" + os.path.split(hive_file)[-1] + ".log")
         else:
             status_dir = self.default_parameters["SCRIPTHIVE"]
-            params['statusdir'] = self.wasb_to_file(container_name, self.default_parameters[
-                                                    "SCRIPTHIVE"] + "/" + os.path.split(hive_file)[-1] + ".log")
+            params['statusdir'] = self.wasb_to_file(
+                container_name, self.default_parameters["SCRIPTHIVE"] +
+                "/" + os.path.split(hive_file)[-1] + ".log")
 
         webHCatUrl = self.url_webHCatUrl("hive")
 
@@ -1022,7 +1042,8 @@ class AzureClient():
         """
         returns the list of jobs
 
-        It uses the API `Job Information — GET queue/:jobid <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Jobs>`_.
+        It uses the API `Job Information — GET queue/:jobid
+        <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Jobs>`_.
 
         @param      showall     if True, show all your jobs (not only yours)
         @param      fields      to add fields in the requests
@@ -1099,7 +1120,7 @@ class AzureClient():
 
         r = requests.get(webHCatUrl,
                          auth=(self.hadoop_user_name, self.hadoop_key),
-                         params=params)
+                         params=params, timeout=100)
 
         if r.status_code != 200:
             raise AzureException("unable to get job queue", r)
@@ -1109,7 +1130,8 @@ class AzureClient():
         """
         return the status of a job
 
-        see `List Versions — GET version <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+Job>`_
+        see `List Versions — GET version <https://cwiki.apache.org/
+        confluence/display/Hive/WebHCat+Reference+Job>`_
         for the outcome
 
         @param          jobid       jobid
@@ -1133,7 +1155,7 @@ class AzureClient():
 
         r = requests.get(webHCatUrl,
                          auth=(self.hadoop_user_name, self.hadoop_key),
-                         params=params)
+                         params=params, timeout=100)
         if r.status_code != 200:
             raise AzureException(
                 "unable to the version of server: " +
@@ -1190,7 +1212,8 @@ class AzureClient():
         """
         kills a job
 
-        see `Delete Job — DELETE queue/:jobid <https://cwiki.apache.org/confluence/display/Hive/WebHCat+Reference+DeleteJob>`_
+        see `Delete Job — DELETE queue/:jobid <https://cwiki.apache.org/
+        confluence/display/Hive/WebHCat+Reference+DeleteJob>`_
         for the outcome
 
         @param          jobid       jobid
@@ -1208,7 +1231,7 @@ class AzureClient():
 
         r = requests.delete(webHCatUrl,
                             auth=(self.hadoop_user_name, self.hadoop_key),
-                            params=params)
+                            params=params, timeout=100)
         if r.status_code != 200:
             raise AzureException(
                 "unable to the version of server: " +
