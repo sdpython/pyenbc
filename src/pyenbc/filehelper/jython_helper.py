@@ -33,7 +33,7 @@ def download_java_standalone(version=JYTHON_VERSION):
     try:
         u = urllib.request.urlopen(url)
     except urllib.error.HTTPError as e:
-        raise Exception(
+        raise RuntimeError(
             "Unable to download file from '{0}'.".format(url)) from e
     alls = u.read()
     u.close()

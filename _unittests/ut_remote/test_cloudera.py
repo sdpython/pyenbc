@@ -167,7 +167,7 @@ class TestCloudera (unittest.TestCase):
         out = out.strip("\n\r ")
         spl = out.split("\n")
         if len(spl) != 2:
-            raise Exception(
+            raise AssertionError(
                 "len:{2}\nOUT:\n{0}\nERR:\n{1}".format(out, err, len(out)))
 
         fLOG("CC")
@@ -240,7 +240,7 @@ class TestCloudera (unittest.TestCase):
                                           params=dict(UTT="unittest2"),
                                           fLOG=fLOG)
         if "pystream.pig syntax OK" not in err:
-            raise Exception("OUT:\n{0}\nERR:\n{1}".format(out, err))
+            raise AssertionError("OUT:\n{0}\nERR:\n{1}".format(out, err))
 
         fLOG("II")
 
@@ -253,7 +253,7 @@ class TestCloudera (unittest.TestCase):
         fLOG("JJ")
 
         if "Total records written : 4" not in err:
-            raise Exception("PIG OUT:\n{0}\nPIG ERR:\n{1}".format(out, err))
+            raise AssertionError("PIG OUT:\n{0}\nPIG ERR:\n{1}".format(out, err))
 
         dest = os.path.join(fold, "out_merged.txt")
         fLOG("dest=", dest)

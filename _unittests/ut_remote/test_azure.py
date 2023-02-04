@@ -167,7 +167,7 @@ class TestAzure (unittest.TestCase):
         out = out.strip("\n\r ")
         spl = out.split("\n")
         if len(spl) != 2:
-            raise Exception(
+            raise AssertionError(
                 "len:{2}\nOUT:\n{0}\nERR:\n{1}".format(
                     out,
                     err,
@@ -255,7 +255,7 @@ class TestAzure (unittest.TestCase):
             status, self.blob_serv, self.container, fold)
 
         if "Total records written : 4" not in err:
-            raise Exception("OUT:\n{0}\nERR:\n{1}".format(out, err))
+            raise AssertionError("OUT:\n{0}\nERR:\n{1}".format(out, err))
 
         dest = os.path.join(fold, "out_merged.txt")
         fLOG("dest=", dest)

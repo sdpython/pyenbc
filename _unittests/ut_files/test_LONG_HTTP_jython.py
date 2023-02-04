@@ -38,7 +38,7 @@ class TestJython (ExtTestCase):
 
         out, err = run_jython(jyt, fLOG=fLOG)
         if "first try with jython" not in out:
-            raise Exception("OUT:\n{0}\nERR:\n{1}\n".format(out, err))
+            raise AssertionError("OUT:\n{0}\nERR:\n{1}\n".format(out, err))
 
     def test_complex_jython(self):
         fLOG(
@@ -109,7 +109,7 @@ class TestJython (ExtTestCase):
         fLOG("ERR:\n", err)
         exp = "[('49', '1', '48.864527821',"
         if exp not in out:
-            raise Exception("OUT:\n{0}\nERR:\n{1}\n".format(out, err))
+            raise AssertionError("OUT:\n{0}\nERR:\n{1}\n".format(out, err))
 
     def test_magic_command_jython(self):
         fLOG(

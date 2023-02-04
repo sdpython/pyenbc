@@ -106,7 +106,7 @@ class ASSHClient():
             out = out.decode("utf-8")
 
         if not no_exception and len(err) > 0:
-            raise Exception(
+            raise RuntimeError(
                 "unable to run: {0}\nOUT:\n{1}\nERR:\n{2}".format(
                     command,
                     out,
@@ -293,9 +293,9 @@ class ASSHClient():
             the output of these instructions.
         """
         if self.connection is None:
-            raise Exception("No open connection.")
+            raise RuntimeError("No open connection.")
         if self.session is not None:
-            raise Exception(
+            raise RuntimeError(
                 "A session is already open. Cannot open a second one.")
         if out_format not in ASSHClient._allowed_form:
             raise KeyError(
@@ -321,7 +321,7 @@ class ASSHClient():
         close a session
         """
         if self.session is None:
-            raise Exception("No open session. Cannot close anything.")
+            raise RuntimeError("No open session. Cannot close anything.")
 
         self.session.close()
         self.session = None
@@ -429,7 +429,7 @@ class ASSHClient():
         """
         out, err = self.execute_command("ls -l " + path)
         if len(err) > 0:
-            raise Exception("unable to execute ls " + path + "\nERR:\n" + err)
+            raise RuntimeError("unable to execute ls " + path + "\nERR:\n" + err)
         return ASSHClient.parse_lsout(out)
 
     def dfs_ls(self, path):
@@ -443,7 +443,7 @@ class ASSHClient():
         """
         out, err = self.execute_command("hdfs dfs -ls " + path)
         if len(err) > 0:
-            raise Exception(
+            raise RuntimeError(
                 "unable to execute hdfs dfs -ls " +
                 path +
                 "\nERR:\n" +
@@ -520,7 +520,7 @@ class ASSHClient():
         if out.startswith("Moved"):
             return out, err
         else:
-            raise Exception(
+            raise RuntimeError(
                 "unable to remove " +
                 path +
                 "\nOUT\n" +

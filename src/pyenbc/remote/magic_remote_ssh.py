@@ -41,7 +41,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
         returns the connection stored in the workspace
         """
         if self.shell is None:
-            raise Exception("No detected workspace.")
+            raise RuntimeError("No detected workspace.")
 
         if "remote_ssh" not in self.shell.user_ns:
             raise KeyError("No opened SSH connection.")
@@ -459,7 +459,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
 
         if args is not None:
             if self.shell is None:
-                raise Exception("No detected workspace.")
+                raise RuntimeError("No detected workspace.")
 
             ssh = ASSHClient(args.server, args.username, args.password)
             ssh.connect()
@@ -730,7 +730,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 if args.overwrite:
                     os.remove(localfile)
                 else:
-                    raise Exception(
+                    raise RuntimeError(
                         "file {0} cannot be overwritten".format(localfile))
             ssh.download(remotepath, localfile)
             return localfile
@@ -799,7 +799,7 @@ class MagicRemoteSSH(MagicClassWithHelpers):
                 if args.overwrite:
                     os.remove(localfile)
                 else:
-                    raise Exception(
+                    raise RuntimeError(
                         "file {0} cannot be overwritten".format(localfile))
             ssh = self.get_connection()
             ssh.download_cluster(remotepath, localfile, merge=args.merge)

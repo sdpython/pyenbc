@@ -102,7 +102,7 @@ class MagicAzure(MagicClassWithHelpers):
         returns the connection stored in the workspace
         """
         if self.shell is None:
-            raise Exception("No detected workspace.")
+            raise RuntimeError("No detected workspace.")
 
         if "remote_azure_client" not in self.shell.user_ns:
             raise KeyError("No opened Azure connection.")
@@ -187,10 +187,10 @@ class MagicAzure(MagicClassWithHelpers):
             server = args.blobstorage
             password = args.blobpassword
             if self.shell is None:
-                raise Exception("No detected workspace.")
+                raise RuntimeError("No detected workspace.")
 
             if "remote_azure_blob" in self.shell.user_ns:
-                raise Exception(
+                raise RuntimeError(
                     "a connection is still open, close it first (stored in remote_azure_blob local variable)")
 
             cl = self.create_client(server, password)
@@ -271,10 +271,10 @@ class MagicAzure(MagicClassWithHelpers):
             username = args.username
 
             if self.shell is None:
-                raise Exception("No detected workspace.")
+                raise RuntimeError("No detected workspace.")
 
             if "remote_azure_blob" in self.shell.user_ns:
-                raise Exception(
+                raise RuntimeError(
                     "a connection is still open, close it first (stored in remote_azure_blob local variable)")
 
             cl = self.create_client(
@@ -537,7 +537,7 @@ class MagicAzure(MagicClassWithHelpers):
                 if args.overwrite:
                     os.remove(localfile)
                 else:
-                    raise Exception(
+                    raise RuntimeError(
                         "file {0} cannot be overwritten".format(localfile))
             cl, bs = self.get_blob_connection()
             container, remotepath = self._interpret_path(remotepath, cl, bs)
@@ -604,7 +604,7 @@ class MagicAzure(MagicClassWithHelpers):
                 if args.overwrite:
                     os.remove(localfile)
                 else:
-                    raise Exception(
+                    raise RuntimeError(
                         "file {0} cannot be overwritten".format(localfile))
 
             cl, bs = self.get_blob_connection()
@@ -1157,9 +1157,8 @@ class MagicAzure(MagicClassWithHelpers):
             nbline = args.nblines
             if len(job) == 0:
                 if self.shell is None or "last_job" not in self.shell.user_ns:
-                    raise Exception("no submitted jobs found in the workspace")
-                else:
-                    job = self.shell.user_ns["last_job"]["jid"]
+                    raise RuntimeError("no submitted jobs found in the workspace")
+                job = self.shell.user_ns["last_job"]["jid"]
 
             cl, bs = self.get_blob_connection()
             out, err = cl.standard_outputs(job, bs, cl.account_name, ".")
